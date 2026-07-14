@@ -1,6 +1,7 @@
 """
-SearXNG-powered ATS slug discovery via Google-style dorks.
+SearXNG-powered ATS slug discovery via founding/confession dorks.
 Optional — enable SearXNG compose profile. Failures are non-fatal.
+Prefer sources.search_ingest.search_ats_postings for full search→job resolution.
 """
 
 from __future__ import annotations
@@ -12,19 +13,9 @@ from typing import Iterable
 import httpx
 
 from tally_scanner.config import get_settings
+from tally_scanner.sources.search_queries import ATS_SITE_DORKS
 
 logger = logging.getLogger(__name__)
-
-DORKS = [
-    'site:boards.greenhouse.io "founding account executive"',
-    'site:boards.greenhouse.io "first sales hire"',
-    'site:boards.greenhouse.io "founding AE"',
-    'site:jobs.lever.co "founding account executive"',
-    'site:jobs.lever.co "first sales hire"',
-    'site:jobs.ashbyhq.com "founding account executive"',
-    'site:jobs.ashbyhq.com "first sales hire"',
-    'site:jobs.ashbyhq.com "founding sales"',
-]
 
 PATTERNS = [
     (re.compile(r"boards\.greenhouse\.io/([a-zA-Z0-9_-]+)", re.I), "greenhouse"),
@@ -52,7 +43,6 @@ def discover_slugs() -> list[dict]:
     discovered: set[tuple[str, str]] = set()
 
     with httpx.Client(timeout=settings.http_timeout, follow_redirects=True) as client:
-        # Health probe
         try:
             probe = client.get(f"{base}/")
             if probe.status_code >= 500:
@@ -62,7 +52,7 @@ def discover_slugs() -> list[dict]:
             logger.info("SearXNG unreachable (%s) — skipping slug discovery", e)
             return []
 
-        for q in DORKS:
+        for q in ATS_SITE_DORKS:
             try:
                 r = client.get(
                     f"{base}/search",

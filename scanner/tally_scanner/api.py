@@ -20,7 +20,10 @@ app = FastAPI(title="Tally Scanner", version="0.1.0")
 class RunRequest(BaseModel):
     discover: bool = True
     score: bool = True
-    write_notion: bool = True
+    write_notion: bool = False
+    limit: int | None = None
+    fresh: bool = False
+    include_slug_boards: bool = True
 
 
 class RunResponse(BaseModel):
@@ -48,6 +51,9 @@ def run(
             discover=req.discover,
             score=req.score,
             write_notion=req.write_notion,
+            limit=req.limit,
+            fresh=req.fresh,
+            include_slug_boards=req.include_slug_boards,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e

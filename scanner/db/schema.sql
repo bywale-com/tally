@@ -11,6 +11,10 @@ CREATE TABLE IF NOT EXISTS postings (
   source          TEXT NOT NULL,          -- primary/first board name
   url             TEXT,
   raw_text        TEXT,                   -- primary body (company board preferred)
+  -- AI filter decision: every polled posting is stored; nothing discarded at filter stage
+  filter_status   TEXT,                   -- 'in' | 'out' | NULL (NULL = not yet filtered)
+  filter_reason   TEXT,
+  filter_json     JSONB,
   confession_hit  BOOLEAN DEFAULT FALSE,
   confession_quote TEXT,
   first_seen      TIMESTAMPTZ DEFAULT now(),
@@ -37,21 +41,15 @@ CREATE TABLE IF NOT EXISTS company_slugs (
 CREATE INDEX IF NOT EXISTS idx_postings_scored_false
   ON postings (id) WHERE scored = FALSE;
 
+CREATE INDEX IF NOT EXISTS idx_postings_filter_status
+  ON postings (filter_status);
+
 CREATE INDEX IF NOT EXISTS idx_postings_lane
   ON postings (lane);
 
 CREATE INDEX IF NOT EXISTS idx_company_slugs_ats
   ON company_slugs (ats);
 
--- Seed a few known high-signal boards for first-run smoke tests.
--- Slug discovery (SearXNG) will grow this table.
-INSERT INTO company_slugs (slug, ats) VALUES
-  ('anthropic', 'greenhouse'),
-  ('stripe', 'greenhouse'),
-  ('notion', 'ashby'),
-  ('ramp', 'ashby'),
-  ('openai', 'ashby'),
-  ('superpanel', 'ashby'),
-  ('superpanel', 'greenhouse'),
-  ('superpanel', 'lever')
-ON CONFLICT DO NOTHING;
+-- No mega-corp seeds. company_slugs is filled by search discovery
+-- (SearXNG ATS dorks) or hand-curated early-stage boards only.
+

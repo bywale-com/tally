@@ -66,6 +66,17 @@ services:
         condition: service_healthy
     command: ["uvicorn", "tally_scanner.api:app", "--host", "0.0.0.0", "--port", "8000"]
 
+  # Browser DB GUI — open http://localhost:8081
+  # Login: System=PostgreSQL, Server=postgres, User/Pass/DB from .env
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    ports:
+      - "${ADMINER_PORT:-8081}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   searxng:
     image: searxng/searxng:latest
     restart: unless-stopped

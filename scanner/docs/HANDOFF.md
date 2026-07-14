@@ -13,26 +13,27 @@
 1. **Orchestrator is n8n, not Cursor/IDE.** The IDE is build-time only. n8n runs the pipeline on a cron schedule inside Docker.
 2. **Batch mode.** One run per day. All new survivors are scored in a single LLM batch call producing one daily digest. Never per-posting scoring.
 3. **LLM cost is accepted; scraping cost is the constraint.** Do not use Apify actors or any paid scraping service. Free/open-source only. It is fine (encouraged) to let the LLM do per-candidate enrichment via web search — few candidates survive filtering, so this is cheaper than data subscriptions.
-4. **Regex filter is deliberately loose.** Its job is to kill obvious garbage, not to be precise. Borderline postings pass through; the LLM scorer disqualifies them. False positives at the regex layer are cheap; false negatives are lost deals.
-5. **Only new survivors go to the scorer.** Dedup happens before scoring. Never re-score a posting already in the database. This is the detail most likely to be lost — enforce it.
-6. **Output destination is Notion.**
+4. **Search-first, not career-page dumps.** Intake is job-board *queries* (founding AE / confession phrases) via SearXNG ATS dorks + free sources (HN). Keyword gate may expand a *discovered* board. Never dump mega-corp boards (Notion/Stripe/…) as the primary source.
+5. **Only new survivors go to the scorer.** Dedup happens before scoring. Never re-score a posting already scored.
+6. **Output destination is Postgres** (ranked / lane-tagged). Notion is optional legacy only.
+7. **AI triage tags in|out; outs are kept** for audit. Regex phrase lists are for *search queries* and a cheap gate — not the final brain.
 
 ---
 
 ## 1. Architecture overview
 
 ```
-[Job boards & APIs]
+[Job board SEARCH queries]  ← founding AE / confession phrases
         ↓
-[Scraper tier]         ← JobSpy, ATS JSON APIs, Crawlee, Playwright, RSS
+[SearXNG ATS dorks + HN + …] ← resolve to specific jobs / keyword-gated boards
         ↓
-[Regex filter]         ← role strings + confession strings (loose)
+[AI triage]                  ← tag in|out (keep all rows)
         ↓
-[Dedup store]          ← Postgres, hash(company + title)  [source NOT in key]
-        ↓  (new rows only)
-[LLM scorer — batch]   ← Claude API + web search tool, Tally Scanner prompt
+[Dedup store]                ← Postgres, hash(company + title)
+        ↓  (new filter INs only)
+[LLM scorer — batch]         ← ACV + confession quote + Lane A/B/DQ
         ↓
-[Notion table]         ← ranked by ACV desc, lane assigned
+[Postgres results]           ← ranked by ACV, lane assigned
 ```
 
 Everything runs from one `docker-compose.yml`: **n8n**, **Postgres**, **scraper worker(s)** (Python container(s) n8n triggers via webhook). Optional: **SearXNG** container for automated Google dorking.

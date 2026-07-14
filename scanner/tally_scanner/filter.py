@@ -39,6 +39,7 @@ ROLE_STRINGS: list[str] = [
 ROLE_WITH_COOCCURRENCE: list[tuple[str, list[str]]] = [
     ("head of sales", ["early stage", "seed", "series a"]),
     ("player coach", ["sales"]),
+    ("sales lead", ["series a", "early stage", "seed", "founding"]),
 ]
 
 CONFESSION_STRINGS: list[str] = [

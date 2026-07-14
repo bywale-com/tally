@@ -1,14 +1,6 @@
-# Seed ATS board slugs (also inserted via schema.sql).
-# Format: one "ats:slug" per line. Comments with #.
-# Discovery via SearXNG appends to Postgres company_slugs — this file is for bootstrap only.
-
-greenhouse:anthropic
-greenhouse:stripe
-ashby:notion
-ashby:ramp
-ashby:openai
-
-# Smoke-test reference (handoff §8): Superpanel — try all three ATS shapes
-ashby:superpanel
-greenhouse:superpanel
-lever:superpanel
+# ATS board slugs discovered by SEARCH get inserted into Postgres automatically.
+# Do NOT seed mega-corp career boards (Notion/Stripe/OpenAI/…) — those invert the funnel.
+# Format: ats:slug — optional hand-curated *early-stage* boards only.
+#
+# Example (uncomment if you have a known early hiring board):
+# ashby:some-seed-startup

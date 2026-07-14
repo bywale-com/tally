@@ -11,7 +11,7 @@ import psycopg
 from psycopg.rows import dict_row
 
 from tally_scanner.config import get_settings
-from tally_scanner.models import RawPosting, dedup_hash
+from tally_scanner.models import RawPosting
 
 logger = logging.getLogger(__name__)
 
@@ -47,17 +47,25 @@ def list_company_slugs(conn: psycopg.Connection, ats: str | None = None) -> list
     return list(rows)
 
 
+def truncate_postings(conn: psycopg.Connection) -> None:
+    """Clear posting tables for a clean pilot re-ingest."""
+    conn.execute("TRUNCATE postings, posting_sources RESTART IDENTITY CASCADE")
+
+
 def upsert_posting(
     conn: psycopg.Connection,
     posting: RawPosting,
     *,
+    filter_status: str | None = None,
+    filter_reason: str | None = None,
+    filter_json: dict | None = None,
     confession_hit: bool = False,
     confession_quote: str | None = None,
 ) -> tuple[int, bool]:
     """
     Insert posting if new, always add posting_sources row.
     Returns (posting_id, is_new).
-    is_new=True only when this company+title was never seen — those go to the scorer.
+    Filter outs are stored too — filter_status tags in vs out.
     """
     h = posting.hash
     existing = conn.execute(
@@ -70,8 +78,9 @@ def upsert_posting(
             """
             INSERT INTO postings (
               dedup_hash, company, title, source, url, raw_text,
+              filter_status, filter_reason, filter_json,
               confession_hit, confession_quote, scored
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, FALSE)
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s, %s, FALSE)
             RETURNING id
             """,
             (
@@ -81,6 +90,9 @@ def upsert_posting(
                 posting.source,
                 posting.url,
                 posting.raw_text,
+                filter_status,
+                filter_reason,
+                json.dumps(filter_json) if filter_json is not None else None,
                 confession_hit,
                 confession_quote,
             ),
@@ -90,16 +102,34 @@ def upsert_posting(
     else:
         posting_id = int(existing["id"])
         is_new = False
-        # Upgrade confession flag if a later source hits
-        if confession_hit and not existing["confession_hit"]:
-            conn.execute(
-                """
-                UPDATE postings
-                SET confession_hit = TRUE, confession_quote = COALESCE(%s, confession_quote)
-                WHERE id = %s
-                """,
-                (confession_quote, posting_id),
-            )
+        conn.execute(
+            """
+            UPDATE postings
+            SET
+              filter_status = COALESCE(%s, filter_status),
+              filter_reason = COALESCE(%s, filter_reason),
+              filter_json = COALESCE(%s::jsonb, filter_json),
+              confession_hit = CASE WHEN %s THEN TRUE ELSE confession_hit END,
+              confession_quote = CASE
+                WHEN %s THEN COALESCE(%s, confession_quote)
+                ELSE confession_quote
+              END,
+              url = COALESCE(%s, url),
+              raw_text = COALESCE(%s, raw_text)
+            WHERE id = %s
+            """,
+            (
+                filter_status,
+                filter_reason,
+                json.dumps(filter_json) if filter_json is not None else None,
+                confession_hit,
+                confession_hit,
+                confession_quote,
+                posting.url,
+                posting.raw_text,
+                posting_id,
+            ),
+        )
 
     conn.execute(
         """
@@ -115,11 +145,12 @@ def upsert_posting(
 
 
 def list_unscored(conn: psycopg.Connection) -> list[dict[str, Any]]:
-    """Survivors with scored=false — ONLY these go to the LLM."""
+    """Filter INs with scored=false — ONLY these go to the scorer."""
     rows = conn.execute(
         """
         SELECT
           p.id, p.company, p.title, p.source, p.url, p.raw_text,
+          p.filter_status, p.filter_reason,
           p.confession_hit, p.confession_quote, p.first_seen,
           COALESCE(
             (
@@ -134,6 +165,7 @@ def list_unscored(conn: psycopg.Connection) -> list[dict[str, Any]]:
           ) AS sources
         FROM postings p
         WHERE p.scored = FALSE
+          AND (p.filter_status = 'in' OR p.filter_status IS NULL)
         ORDER BY p.id
         """
     ).fetchall()
