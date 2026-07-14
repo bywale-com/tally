@@ -1,0 +1,22 @@
+# Optional SearXNG — enable with: docker compose --profile searxng up -d
+# Copy settings from the image if you need overrides; minimal settings keep dorking working.
+use_default_settings: true
+
+server:
+  secret_key: "change-me-in-production-use-openssl-rand"
+  limiter: false
+  image_proxy: false
+
+search:
+  safe_search: 0
+  formats:
+    - html
+    - json
+
+engines:
+  - name: google
+    engine: google
+    disabled: false
+  - name: duckduckgo
+    engine: duckduckgo
+    disabled: false

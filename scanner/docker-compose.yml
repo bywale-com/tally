@@ -1,0 +1,81 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-tally}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tally}
+      POSTGRES_DB: ${POSTGRES_DB:-tally_scanner}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-tally} -d ${POSTGRES_DB:-tally_scanner}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional — only if you do NOT already run n8n elsewhere:
+  #   docker compose --profile bundled-n8n up -d
+  n8n:
+    profiles: ["bundled-n8n"]
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    environment:
+      N8N_HOST: ${N8N_HOST:-localhost}
+      N8N_PORT: 5678
+      N8N_PROTOCOL: ${N8N_PROTOCOL:-http}
+      WEBHOOK_URL: ${N8N_WEBHOOK_URL:-http://localhost:5678/}
+      GENERIC_TIMEZONE: ${TZ:-America/Vancouver}
+      TZ: ${TZ:-America/Vancouver}
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB:-tally_scanner}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER:-tally}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:-tally}
+      DB_POSTGRESDB_SCHEMA: n8n
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/home/node/workflows:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${SCANNER_PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-tally}:${POSTGRES_PASSWORD:-tally}@postgres:5432/${POSTGRES_DB:-tally_scanner}
+      SEARXNG_URL: http://searxng:8080
+    volumes:
+      - ./tally_scanner:/app/tally_scanner
+      - ./data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["uvicorn", "tally_scanner.api:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  searxng:
+    image: searxng/searxng:latest
+    restart: unless-stopped
+    ports:
+      - "${SEARXNG_PORT:-8080}:8080"
+    volumes:
+      - ./searxng:/etc/searxng:ro
+    profiles:
+      - searxng
+
+volumes:
+  postgres_data:
+  n8n_data:

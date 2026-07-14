@@ -1,0 +1,14 @@
+# Seed ATS board slugs (also inserted via schema.sql).
+# Format: one "ats:slug" per line. Comments with #.
+# Discovery via SearXNG appends to Postgres company_slugs — this file is for bootstrap only.
+
+greenhouse:anthropic
+greenhouse:stripe
+ashby:notion
+ashby:ramp
+ashby:openai
+
+# Smoke-test reference (handoff §8): Superpanel — try all three ATS shapes
+ashby:superpanel
+greenhouse:superpanel
+lever:superpanel
