@@ -35,6 +35,8 @@ export type OpCampaign = {
   id: string;
   name: string;
   companyName: string;
+  /** Domain for dossier website link */
+  companyDomain?: string;
   state: OpCampaignState;
   lastTouched: string;
   createdAt: string;
@@ -49,19 +51,111 @@ export type OpCampaign = {
   notes?: string;
 };
 
+/** Operator enrich firmographics — parity with loFi `prototypeFirms` + keep/prune. */
 export type FirmRow = {
   id: string;
   name: string;
+  website: string;
+  employeeCount: string;
+  sizeBucket: string;
+  hq: string;
+  founded: string;
+  jobCount: number;
+  sources: string[];
+  roleTags: string[];
+  /** Short label for Guest/BC/Worker doors */
   sector: string;
-  employees: string;
+  /** Keep on TAM list (Operator prune). Inverse of loFi `removed`. */
   keep: boolean;
   tag?: "competitor" | "customer" | "dream" | "none";
   blockedBy?: "you" | "operator" | null;
 };
 
+/** @deprecated use sizeBucket — kept as display helper for doors */
+export function firmEmployees(f: FirmRow): string {
+  return f.sizeBucket || f.employeeCount || "—";
+}
+
+export type FirmographicsFilters = {
+  company: string;
+  website: string;
+  employees: string;
+  hq: string;
+  founded: string;
+  jobs: string;
+  sources: string;
+  roleTags: string;
+};
+
+export const EMPTY_FIRM_FILTERS: FirmographicsFilters = {
+  company: "",
+  website: "",
+  employees: "",
+  hq: "",
+  founded: "",
+  jobs: "",
+  sources: "",
+  roleTags: "",
+};
+
+export const SOURCE_LABELS: Record<string, string> = {
+  wellfound: "Wellfound",
+  builtin: "Built In",
+  startup_jobs: "startup.jobs",
+  a16z: "a16z",
+  sequoia: "Sequoia",
+  linkedin: "LinkedIn",
+};
+
+export const ROLE_TAG_LABELS: Record<string, string> = {
+  founding_sales: "Founding sales",
+  founding: "Founding",
+  sales: "Sales",
+};
+
+export function filterFirms(
+  firms: FirmRow[],
+  filters: FirmographicsFilters,
+): FirmRow[] {
+  const q = (s: string) => s.trim().toLowerCase();
+  return firms.filter((f) => {
+    if (q(filters.company) && !f.name.toLowerCase().includes(q(filters.company)))
+      return false;
+    if (
+      q(filters.website) &&
+      !f.website.toLowerCase().includes(q(filters.website))
+    )
+      return false;
+    const emp = `${f.employeeCount} ${f.sizeBucket}`.toLowerCase();
+    if (q(filters.employees) && !emp.includes(q(filters.employees))) return false;
+    if (q(filters.hq) && !f.hq.toLowerCase().includes(q(filters.hq))) return false;
+    if (q(filters.founded) && !f.founded.toLowerCase().includes(q(filters.founded)))
+      return false;
+    if (q(filters.jobs) && !String(f.jobCount).includes(q(filters.jobs)))
+      return false;
+    const src = f.sources
+      .map((s) => SOURCE_LABELS[s] ?? s)
+      .join(" ")
+      .toLowerCase();
+    if (q(filters.sources) && !src.includes(q(filters.sources))) return false;
+    const tags = f.roleTags
+      .map((t) => ROLE_TAG_LABELS[t] ?? t)
+      .join(" ")
+      .toLowerCase();
+    if (q(filters.roleTags) && !tags.includes(q(filters.roleTags))) return false;
+    return true;
+  });
+}
+
 export type CreateTemplate = { id: string; label: string; name: string };
 
-export type KnownCompany = { id: string; name: string; sector: string };
+export type KnownCompany = {
+  id: string;
+  name: string;
+  sector: string;
+  /** Domain without protocol — dossier website link */
+  domain: string;
+};
 
 export type SentInvite = {
   id: string;
@@ -180,13 +274,20 @@ export const CREATE_TEMPLATES: CreateTemplate[] = [
 ];
 
 export const KNOWN_COMPANIES: KnownCompany[] = [
-  { id: "c1", name: "Northwind Labs", sector: "SaaS" },
-  { id: "c2", name: "Brightline Co", sector: "Fintech" },
-  { id: "c3", name: "Cedar Systems", sector: "Infra" },
-  { id: "c4", name: "Delta Field Services", sector: "Services" },
-  { id: "c5", name: "Harbor Labs", sector: "SaaS" },
-  { id: "c6", name: "Rivera Corp", sector: "Commerce" },
+  { id: "c1", name: "Acme Robotics", sector: "SaaS", domain: "acmerobotics.com" },
+  { id: "c2", name: "Northwind Health", sector: "Health", domain: "northwind.health" },
+  { id: "c3", name: "Brightline Freight", sector: "Logistics", domain: "brightlinefreight.com" },
+  { id: "c4", name: "Cascade Analytics", sector: "Analytics", domain: "cascadeanalytics.io" },
+  { id: "c5", name: "Helix Biotech", sector: "Bio", domain: "helixbio.com" },
+  { id: "c6", name: "Cedar Systems", sector: "Infra", domain: "cedarsystems.io" },
 ];
+
+export const EVALUATE_SOURCE_TAGS = [
+  "LinkedIn",
+  "Company site",
+  "Job posts",
+  "Crunchbase",
+] as const;
 
 export const BUSINESS_CLIENTS = [
   { id: "bc1", name: "Acme Corp", email: "you@acme.com" },
@@ -308,17 +409,123 @@ export const SEED_ENRICH_RUN: EnrichRun = {
 };
 
 export const SEED_FIRMS: FirmRow[] = [
-  { id: "f1", name: "Rivera Corp", sector: "SaaS", employees: "200–500", keep: true, tag: "dream" },
-  { id: "f2", name: "Brightline Co", sector: "Fintech", employees: "50–200", keep: true, tag: "none" },
-  { id: "f3", name: "Cedar Systems", sector: "Infra", employees: "500–1k", keep: true, tag: "none" },
-  { id: "f4", name: "Delta Field", sector: "Services", employees: "100–200", keep: false, tag: "none" },
-  { id: "f5", name: "Harbor Labs", sector: "SaaS", employees: "20–50", keep: true, tag: "none" },
-  { id: "f6", name: "Northwind Traders", sector: "Commerce", employees: "1k+", keep: true, tag: "customer" },
+  {
+    id: "f1",
+    name: "Apex Industrial Supply",
+    website: "apexindustrial.com",
+    employeeCount: "120",
+    sizeBucket: "51–200",
+    hq: "Chicago, IL · US",
+    founded: "2014",
+    jobCount: 3,
+    sources: ["wellfound", "linkedin"],
+    roleTags: ["founding_sales"],
+    sector: "MRO / Industrial",
+    keep: true,
+    tag: "dream",
+  },
+  {
+    id: "f2",
+    name: "Beacon Logistics",
+    website: "beaconlogistics.io",
+    employeeCount: "340",
+    sizeBucket: "201–500",
+    hq: "Dallas, TX · US",
+    founded: "2018",
+    jobCount: 5,
+    sources: ["builtin", "linkedin"],
+    roleTags: ["sales", "founding"],
+    sector: "Logistics",
+    keep: true,
+    tag: "none",
+  },
+  {
+    id: "f3",
+    name: "Cedar Components",
+    website: "cedarcomponents.com",
+    employeeCount: "48",
+    sizeBucket: "11–50",
+    hq: "Portland, OR · US",
+    founded: "2021",
+    jobCount: 2,
+    sources: ["wellfound"],
+    roleTags: ["founding_sales"],
+    sector: "Components",
+    keep: true,
+    tag: "none",
+  },
+  {
+    id: "f4",
+    name: "Delta Field Services",
+    website: "deltafield.co",
+    employeeCount: "95",
+    sizeBucket: "51–200",
+    hq: "Atlanta, GA · US",
+    founded: "2016",
+    jobCount: 4,
+    sources: ["linkedin", "startup_jobs"],
+    roleTags: ["founding_sales", "sales"],
+    sector: "Field service",
+    keep: false,
+    tag: "none",
+  },
+  {
+    id: "f5",
+    name: "Echo Manufacturing",
+    website: "echomfg.com",
+    employeeCount: "620",
+    sizeBucket: "501–1,000",
+    hq: "Detroit, MI · US",
+    founded: "2009",
+    jobCount: 7,
+    sources: ["a16z", "linkedin"],
+    roleTags: ["sales"],
+    sector: "Manufacturing",
+    keep: true,
+    tag: "none",
+  },
+  {
+    id: "f6",
+    name: "Forge Analytics",
+    website: "forgeanalytics.ai",
+    employeeCount: "",
+    sizeBucket: "Can't be identified",
+    hq: "Austin, TX · US",
+    founded: "2023",
+    jobCount: 1,
+    sources: ["wellfound"],
+    roleTags: ["founding_sales"],
+    sector: "Analytics",
+    keep: true,
+    tag: "customer",
+  },
   {
     id: "f7",
+    name: "Harbor Robotics",
+    website: "harborrobotics.com",
+    employeeCount: "75",
+    sizeBucket: "51–200",
+    hq: "Boston, MA · US",
+    founded: "2020",
+    jobCount: 2,
+    sources: ["sequoia", "linkedin"],
+    roleTags: ["founding"],
+    sector: "Robotics",
+    keep: true,
+    tag: "none",
+  },
+  {
+    id: "f8",
     name: "Acme Rival Inc",
+    website: "acmerival.example",
+    employeeCount: "210",
+    sizeBucket: "201–500",
+    hq: "San Jose, CA · US",
+    founded: "2012",
+    jobCount: 4,
+    sources: ["linkedin"],
+    roleTags: ["sales"],
     sector: "SaaS",
-    employees: "200–500",
     keep: false,
     tag: "competitor",
     blockedBy: "you",

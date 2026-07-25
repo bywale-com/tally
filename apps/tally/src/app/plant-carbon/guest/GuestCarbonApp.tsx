@@ -431,7 +431,7 @@ export function GuestCarbonApp({ onOpenDesk }: { onOpenDesk?: () => void }) {
                 <div style={{ flex: 1 }}>
                   <div className="cds--type-productive-heading-01">{f.name}</div>
                   <div className="cds--type-helper-text-01">
-                    {f.sector} · {f.employees}
+                    {f.sector} · {f.sizeBucket || f.employeeCount}
                     {f.tag && f.tag !== "none" ? ` · ${f.tag}` : ""}
                     {f.blockedBy ? ` · blocked by ${f.blockedBy}` : ""}
                   </div>

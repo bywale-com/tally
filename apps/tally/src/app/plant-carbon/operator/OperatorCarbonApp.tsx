@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   Button,
-  Checkbox,
   DataTable,
   InlineLoading,
   InlineNotification,
@@ -20,19 +19,23 @@ import {
   TableRow,
   TableToolbar,
   TableToolbarContent,
-  TextArea,
+  TableToolbarSearch,
+  Tag,
   TextInput,
   Tile,
 } from "@carbon/react";
 import { CarbonDeskShell } from "../shell/CarbonDeskShell";
 import { DoorModal } from "../ui/DoorModal";
+import { DossierCarbon } from "../ui/DossierCarbon";
 import { FactList } from "../ui/FactList";
+import { FirmographicsCarbon } from "../ui/FirmographicsCarbon";
 import { StatusTag } from "../ui/StatusTag";
 import {
   BUSINESS_CLIENTS,
   CARBON_SEED,
   CREATE_TEMPLATES,
   DOSSIER_SECTIONS,
+  EVALUATE_SOURCE_TAGS,
   KNOWN_COMPANIES,
   SEED_ENRICH_RUN,
   SEED_FIRMS,
@@ -89,7 +92,6 @@ const HEADERS = [
 
 const CREATE_MS = 900;
 const EVALUATE_MS = 1200;
-const REANALYZE_MS = 1400;
 const ENRICH_MS = 1000;
 
 function decisionLabel(state: OpCampaignState): string {
@@ -150,9 +152,8 @@ export function OperatorCarbonApp() {
   const [sentInvites, setSentInvites] = useState<SentInvite[]>(() => [
     ...SEED_SENT_INVITES,
   ]);
-  const [notes, setNotes] = useState("");
-  const [reanalyzing, setReanalyzing] = useState(false);
   const [enrichHistoryOpen, setEnrichHistoryOpen] = useState(false);
+  const [listFilter, setListFilter] = useState("");
 
   const active = campaigns.find((c) => c.id === activeId) ?? null;
 
@@ -162,13 +163,21 @@ export function OperatorCarbonApp() {
     return KNOWN_COMPANIES.filter(
       (c) =>
         c.name.toLowerCase().includes(q) ||
-        c.sector.toLowerCase().includes(q),
+        c.sector.toLowerCase().includes(q) ||
+        c.domain.toLowerCase().includes(q),
     );
   }, [companyQuery]);
 
-  const rows = useMemo(
-    () =>
-      campaigns.map((c) => ({
+  const rows = useMemo(() => {
+    const q = listFilter.trim().toLowerCase();
+    return campaigns
+      .filter(
+        (c) =>
+          !q ||
+          c.name.toLowerCase().includes(q) ||
+          c.companyName.toLowerCase().includes(q),
+      )
+      .map((c) => ({
         id: c.id,
         name: c.name,
         company: c.companyName,
@@ -178,9 +187,9 @@ export function OperatorCarbonApp() {
             ? `${c.bookedMeetings} / ${c.targetMeetings}`
             : `— / ${c.targetMeetings}`,
         touched: c.lastTouched,
-      })),
-    [campaigns],
-  );
+        _state: c.state,
+      }));
+  }, [campaigns, listFilter]);
 
   function patchActive(
     patch: Partial<OpCampaign>,
@@ -200,9 +209,7 @@ export function OperatorCarbonApp() {
   function openCampaign(id: string) {
     const c = campaigns.find((x) => x.id === id);
     if (!c) return;
-    setActiveId(id);
-    setNotes(c.notes ?? "");
-    if (c.state === "draft") setView("basics");
+    setActiveId(id);    if (c.state === "draft") setView("basics");
     else if (c.state === "evaluate") setView("campaign");
     else if (c.state === "enrich") setView("firm-list");
     else if (c.state === "ready") setView("deploy-choice");
@@ -289,14 +296,6 @@ export function OperatorCarbonApp() {
     }, ENRICH_MS);
     return () => window.clearTimeout(t);
   }, [view, activeId]);
-
-  function runReanalyze() {
-    setReanalyzing(true);
-    window.setTimeout(() => {
-      setReanalyzing(false);
-      patchActive({ lastTouched: "Just now" }, "Re-analyzed dossier");
-    }, REANALYZE_MS);
-  }
 
   function pageTitle(): string {
     if (nav !== "campaigns") {
@@ -408,6 +407,20 @@ export function OperatorCarbonApp() {
             >
               <TableToolbar>
                 <TableToolbarContent>
+                  <TableToolbarSearch
+                    persistent
+                    value={listFilter}
+                    onChange={(e, value) => {
+                      const next =
+                        typeof value === "string"
+                          ? value
+                          : (e as { target?: { value?: string } })?.target
+                              ?.value ?? "";
+                      setListFilter(next);
+                    }}
+                    onClear={() => setListFilter("")}
+                    placeholder="Filter campaigns"
+                  />
                   <Button
                     onClick={() => {
                       setBasicsName("");
@@ -600,7 +613,9 @@ export function OperatorCarbonApp() {
                     <div className="cds--type-productive-heading-01">
                       {co.name}
                     </div>
-                    <div className="cds--type-helper-text-01">{co.sector}</div>
+                    <div className="cds--type-helper-text-01">
+                      {co.domain} · {co.sector}
+                    </div>
                   </div>
                   <Button
                     size="sm"
@@ -608,6 +623,7 @@ export function OperatorCarbonApp() {
                       patchActive(
                         {
                           companyName: co.name,
+                          companyDomain: co.domain,
                           lastTouched: "Just now",
                         },
                         `Company · ${co.name}`,
@@ -638,6 +654,13 @@ export function OperatorCarbonApp() {
           <InlineLoading
             description={`Evaluating ${active.companyName}…`}
           />
+          <Stack orientation="horizontal" gap={2} style={{ flexWrap: "wrap" }}>
+            {EVALUATE_SOURCE_TAGS.map((tag) => (
+              <Tag key={tag} type="gray" size="sm">
+                {tag}
+              </Tag>
+            ))}
+          </Stack>
           <InlineNotification
             kind="info"
             lowContrast
@@ -650,63 +673,23 @@ export function OperatorCarbonApp() {
 
       {/* —— Dossier —— */}
       {nav === "campaigns" && view === "dossier" && active ? (
-        <Stack gap={6}>
-          <FactList
-            facts={[
-              { label: "Company", value: active.companyName },
-              { label: "ACV band", value: CARBON_SEED.acvBand },
-              {
-                label: "Price / meeting",
-                value: `$${active.pricePerMeeting}`,
-              },
-              { label: "Target", value: String(active.targetMeetings) },
-              {
-                label: "Hold",
-                value: `${active.holdDays ?? CARBON_SEED.holdDays} days`,
-              },
-            ]}
-          />
-          <InlineNotification
-            kind="success"
-            lowContrast
-            hideCloseButton
-            title="Verdict"
-            subtitle="Qualified for enrich. Price stands behind size, not a house rate."
-          />
-          <TextArea
-            id="dossier-notes"
-            labelText="Notes"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            placeholder="Call notes for Operator glance"
-          />
-          <Stack orientation="horizontal" gap={3}>
-            <Button
-              onClick={() => {
-                patchActive(
-                  { notes, state: "enrich", lastTouched: "Just now" },
-                  "Notes saved · start enrich",
-                );
-                setView("enriching");
-              }}
-            >
-              Enrich firm list
-            </Button>
-            <Button
-              kind="tertiary"
-              disabled={reanalyzing}
-              onClick={runReanalyze}
-            >
-              {reanalyzing ? "Re-analyzing…" : "Re-analyze"}
-            </Button>
-            <Button kind="ghost" onClick={() => setDoor("dossier-more")}>
-              More
-            </Button>
-            <Button kind="ghost" onClick={() => setDoor("details")}>
-              Details
-            </Button>
-          </Stack>
-        </Stack>
+        <DossierCarbon
+          companyName={active.companyName}
+          domain={
+            active.companyDomain ??
+            KNOWN_COMPANIES.find((c) => c.name === active.companyName)
+              ?.domain ??
+            ""
+          }
+          onEnrich={() => {
+            patchActive(
+              { state: "enrich", lastTouched: "Just now" },
+              "Start enrich",
+            );
+            setView("enriching");
+          }}
+          onHistory={(label) => patchActive({ lastTouched: "Just now" }, label)}
+        />
       ) : null}
 
       {/* —— Enriching —— */}
@@ -716,6 +699,7 @@ export function OperatorCarbonApp() {
           <p className="cds--type-helper-text-01">
             {SEED_ENRICH_RUN.sourceMix} · last run {SEED_ENRICH_RUN.at}
           </p>
+          <FirmographicsCarbon firms={firms} onChange={setFirms} running />
         </Stack>
       ) : null}
 
@@ -735,83 +719,13 @@ export function OperatorCarbonApp() {
             </Button>
           </Stack>
           <p className="cds--type-body-01">
-            Build and prune the firm list. Then deploy.
+            Build and prune the firm list (full firmographics). Then deploy.
           </p>
-          <DataTable
-            rows={firms.map((f) => ({
-              id: f.id,
-              name: f.name,
-              sector: f.sector,
-              employees: f.employees,
-              keep: f.keep ? "Keep" : "Prune",
-            }))}
-            headers={[
-              { key: "name", header: "Firm" },
-              { key: "sector", header: "Sector" },
-              { key: "employees", header: "Size" },
-              { key: "keep", header: "List" },
-            ]}
-          >
-            {({
-              rows: firmRows,
-              headers,
-              getHeaderProps,
-              getRowProps,
-              getTableProps,
-              getTableContainerProps,
-            }) => (
-              <TableContainer
-                {...getTableContainerProps()}
-                title="Firm / TAM list"
-              >
-                <Table {...getTableProps()} size="sm">
-                  <TableHead>
-                    <TableRow>
-                      {headers.map((header) => {
-                        const { key, ...rest } = getHeaderProps({ header });
-                        return (
-                          <TableHeader key={key} {...rest}>
-                            {header.header}
-                          </TableHeader>
-                        );
-                      })}
-                      <TableHeader>Keep</TableHeader>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {firmRows.map((row) => {
-                      const firm = firms.find((f) => f.id === row.id);
-                      const { key, ...rowProps } = getRowProps({ row });
-                      return (
-                        <TableRow key={key} {...rowProps}>
-                          {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
-                          ))}
-                          <TableCell>
-                            <Checkbox
-                              id={`keep-${row.id}`}
-                              labelText=""
-                              hideLabel
-                              checked={firm?.keep ?? false}
-                              onChange={(_, { checked }) =>
-                                setFirms((prev) =>
-                                  prev.map((f) =>
-                                    f.id === row.id
-                                      ? { ...f, keep: checked }
-                                      : f,
-                                  ),
-                                )
-                              }
-                            />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            )}
-          </DataTable>
+          <FirmographicsCarbon
+            firms={firms}
+            onChange={setFirms}
+            campaignName={active.name}
+          />
           <Button
             onClick={() => {
               const kept = firms.filter((f) => f.keep).length;

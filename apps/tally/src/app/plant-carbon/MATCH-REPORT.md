@@ -71,6 +71,7 @@
 - Optional `@carbon/ibm-products` Tearsheet once ambiguity #1 decided.
 - Visual QA polish across g10/g100 (not Function gaps).
 - Operator command palette / shortcuts / notifications sheets (ambient chrome, not Core path).
+- **Law:** no missing Function on translate — firmographics (columns + filter + add) restored 2026-07-25 after plant parity check.
 
 ## `/prototype-carbon` isolation
 

@@ -201,7 +201,7 @@ export function WorkerCarbonApp() {
     const f = firms.find(
       (x) => x.name.toLowerCase() === name.trim().toLowerCase(),
     );
-    if (f) setLogSize(f.employees);
+    if (f) setLogSize(f.sizeBucket || f.employeeCount);
   }
 
   function submitLog() {
@@ -238,9 +238,17 @@ export function WorkerCarbonApp() {
         {
           id: `f-${Date.now()}`,
           name: logCompany.trim(),
+          website: "—",
+          employeeCount: logSize || "",
+          sizeBucket: logSize || "—",
+          hq: "—",
+          founded: "—",
+          jobCount: 0,
+          sources: ["linkedin"],
+          roleTags: ["sales"],
           sector: "—",
-          employees: logSize || "—",
           keep: true,
+          tag: "none",
         },
       ]);
     }
@@ -583,7 +591,7 @@ export function WorkerCarbonApp() {
               const f = firms.find(
                 (x) => x.name.toLowerCase() === v.trim().toLowerCase(),
               );
-              if (f) setLogSize(f.employees);
+              if (f) setLogSize(f.sizeBucket || f.employeeCount);
             }}
           />
           {duplicateCompany ? (
@@ -826,7 +834,7 @@ export function WorkerCarbonApp() {
             <Tile key={f.id}>
               <div className="cds--type-productive-heading-01">{f.name}</div>
               <div className="cds--type-helper-text-01">
-                {f.sector} · {f.employees}
+                    {f.sector} · {f.sizeBucket || f.employeeCount}
                 {f.tag && f.tag !== "none" ? ` · ${f.tag}` : ""}
                 {f.blockedBy ? ` · blocked by ${f.blockedBy}` : ""}
               </div>
