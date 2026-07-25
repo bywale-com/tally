@@ -1,0 +1,29 @@
+{
+  "platform": "startup_jobs",
+  "dry_run": false,
+  "merged_at": "2026-07-22T08:53:10.191495+00:00",
+  "primaries_seen": 125,
+  "jobs_enriched_from_primary": 112,
+  "primary_fields_filled": 328,
+  "related_raw": 307,
+  "related_unique": 307,
+  "related_already_primary": 1,
+  "related_already_washed": 0,
+  "related_added": 306,
+  "jobs_before": 4944,
+  "jobs_after": 5250,
+  "net_job_delta": 306,
+  "backups": [
+    "C:\\Users\\Admin\\Documents\\Wale Omotayo\\Apps\\tally\\scanner\\data\\startup_jobs_extract\\merge_backups\\washed-jobs.startup_jobs.20260722T085310Z.json",
+    "C:\\Users\\Admin\\Documents\\Wale Omotayo\\Apps\\tally\\scanner\\data\\startup_jobs_extract\\merge_backups\\washed-companies.startup_jobs.20260722T085310Z.json"
+  ],
+  "published_jobs": 5250,
+  "published_companies": 3218,
+  "published_companies_with_url": 3214,
+  "published_relevance": {
+    "founding_sales": 649,
+    "sales": 2544,
+    "other": 1854,
+    "founding": 203
+  }
+}

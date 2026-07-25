@@ -1,0 +1,26 @@
+---
+description: Outcome so-that — Core outcomes need capability + so-that clause that closes the lattice
+globs: apps/tally/src/app/register/**/*.ts
+alwaysApply: true
+---
+
+# Outcome so-that
+
+**Thesis:** A capability list is not an outcome until it says who benefits next. Every Core outcome statement needs `— so that <next entity> can <next capability>`, and the chain of so-thats must close back into the lattice.
+
+Full law: `docs/build-foundation/08-outcome-so-that.md`  
+Worked spine: `docs/register/OUTCOMES-TREE.md`
+
+## Do
+
+- Give every **Core** outcome a capability clause and a `so that` clause
+- Name the **next entity already in the lattice** in the so-that (or register a new entity deliberately, in funnel order)
+- Check the full chain of so-thats **closes** — the last one lands on an entity already named upstream
+- Update the funnel comment in `outcomesRegistry.ts` when adding/reordering entities
+
+## Don't
+
+- Ship a Core statement that's just a capability list with no so-that
+- Let a so-that dangle into infra/process language ("the system logs it", "the dashboard updates")
+- Invent a so-that party that isn't an entity with its own outcomes
+- Author a new entity's How graph when the task only asks for the registry `howGraphId` stub

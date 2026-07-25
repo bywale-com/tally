@@ -2,7 +2,7 @@
 
 Daily sourcing pipeline for **Tally** (pay-per-qualified-meeting fractional sales).
 
-**Search** job boards for founding AE / first-sales / pipeline-confession postings → **AI triage** (tag in/out, keep all) → Postgres dedup → **Claude score** (ACV + Lane A/B/DQ) → Postgres results.
+**Search** job boards for founding AE / first-sales / pipeline-confession postings → **AI triage** (tag in/out, keep all) → Postgres dedup → **OpenAI score** (ACV + Lane A/B/DQ) → Postgres results.
 
 > Full current-state writeup: [`docs/STATE.md`](docs/STATE.md)
 
@@ -17,7 +17,7 @@ Daily sourcing pipeline for **Tally** (pay-per-qualified-meeting fractional sale
         ↓
 [Postgres dedup]
         ↓  (new filter INs only)
-[Claude scorer — batch]  ← ACV, confession quote, lanes
+[OpenAI scorer — batch]  ← ACV, confession quote, lanes
         ↓
 [Postgres results]
 ```
@@ -28,7 +28,7 @@ Daily sourcing pipeline for **Tally** (pay-per-qualified-meeting fractional sale
 
 ```bash
 cd scanner
-cp .env.example .env   # OPENAI_API_KEY required for triage; ANTHROPIC for scoring
+cp .env.example .env   # OPENAI_API_KEY required (triage + scoring)
 
 docker compose up -d postgres scanner adminer
 docker compose --profile searxng up -d
@@ -41,6 +41,33 @@ docker compose exec scanner python -m tally_scanner run --fresh --no-score --lim
 - Health: http://localhost:8000/health
 - State doc: [`docs/STATE.md`](docs/STATE.md)
 - Handoff history: [`docs/HANDOFF.md`](docs/HANDOFF.md)
+
+## Offline platform extracts (LinkedIn / Built In / startup.jobs)
+
+Stealthy fetch + JSON-LD parse, checkpointed batches. Shares one Chromium lock
+(`stealthy_fetch`) — avoid running multiple batches in parallel.
+
+```bash
+cd scanner
+
+# LinkedIn (existing)
+python scripts/linkedin_job_batch.py --tier founding_sales,founding --limit 5
+python scripts/merge_linkedin_extract.py --phase 1
+
+# Built In
+python scripts/builtin_job_batch.py --tier founding_sales,founding --limit 5
+python scripts/merge_platform_extract.py --platform builtin
+
+# startup.jobs (no company-page follow — use job JSON-LD website)
+python scripts/startup_jobs_batch.py --tier founding_sales,founding --limit 5
+python scripts/merge_platform_extract.py --platform startup_jobs
+
+# Smoke (no recursive company follow)
+python scripts/smoke_platform_fetch.py
+```
+
+Outputs: `data/linkedin_extract/`, `data/builtin_extract/`, `data/startup_jobs_extract/`
+(jsonl + checkpoints gitignored). Overlap skip vs LinkedIn: see `tally_scanner/platform_overlap.py`.
 
 ## Layout
 

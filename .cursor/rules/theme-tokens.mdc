@@ -1,0 +1,30 @@
+---
+description: Theme — use Tokens (t), never hardcode light/dark colors
+globs: apps/tally/src/**/*.tsx
+alwaysApply: true
+---
+
+# Theme & tokens
+
+This product is **token-driven**. Components receive `t` (and `isDark` only when a child needs rare mode-specific behavior).
+
+## Do
+
+- Use token fields for theme-aware colors (`bgPrimary`, `textPrimary`, `border`, `accent`, `hoverBg`, etc.)
+- Keep a single Tokens type with **light** and **dark** objects — do not duplicate hex in components
+- Pass **`t` down**; thread `isDark` only when necessary
+- Reuse shared tree/list typography helpers for sidebars and dense lists
+
+## Don't
+
+- Hardcode `#ffffff`, `#000000`, or grey rgb for theme-aware chrome
+- Use `isDark ? "#fff" : "#000"` for standard text/background/border
+- Add colors without updating the Tokens type and both themes
+- Invent one-off list font sizes — align with shared label styles
+
+## Paths
+
+- Tokens: `apps/tally/src/app/components/tokens.ts`
+- Typography helpers: `apps/tally/src/app/components/docs/treeTypography.ts`
+
+See `docs/build-foundation/03-visual-system.md`.

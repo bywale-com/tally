@@ -1,0 +1,56 @@
+{
+  "washed_at": "2026-07-17T16:54:02.022327+00:00",
+  "input_dir": "manual_scrapes_raw",
+  "sources": {
+    "builtin": {
+      "files": 7,
+      "raw_rows": 131,
+      "jobs": 123
+    },
+    "linkedin": {
+      "files": 2,
+      "raw_rows": 722,
+      "jobs": 722
+    },
+    "sequoia": {
+      "files": 1,
+      "raw_rows": 4,
+      "jobs": 1
+    },
+    "a16z": {
+      "files": 2,
+      "raw_rows": 9,
+      "jobs": 9
+    },
+    "startup_jobs": {
+      "files": 5,
+      "raw_rows": 195,
+      "jobs": 191
+    },
+    "wellfound": {
+      "files": 3,
+      "raw_rows": 2421,
+      "jobs": 4051
+    }
+  },
+  "skipped_files": [],
+  "total_raw_jobs": 5097,
+  "duplicates_removed": 2170,
+  "total_washed": 2944,
+  "total_companies": 2042,
+  "companies_with_url": 2041,
+  "relevance": {
+    "founding_sales": 427,
+    "other": 1087,
+    "sales": 1353,
+    "founding": 77
+  },
+  "missing": {
+    "url": 0,
+    "company": 0,
+    "title": 0,
+    "posted": 147
+  },
+  "output": "C:\\Users\\Admin\\Documents\\Wale Omotayo\\Apps\\tally\\scanner\\data\\washed\\jobs.jsonl",
+  "companies_output": "C:\\Users\\Admin\\Documents\\Wale Omotayo\\Apps\\tally\\scanner\\data\\washed\\companies.jsonl"
+}

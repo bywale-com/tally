@@ -1,0 +1,39 @@
+---
+description: shadcn/ui — prefer composed primitives; keep Tokens + Holons for shell chrome
+globs: src/**/*.{tsx,ts,css}
+alwaysApply: true
+---
+
+# shadcn/ui (rudiment)
+
+Interactive UI primitives come from **shadcn/ui** — not one-off styled `div`s for buttons, dialogs, forms, tables, sheets, or empty states. Shell chrome stays on **Tokens + surface boundaries + product icon registry**.
+
+Official skill docs: https://ui.shadcn.com/docs/skills  
+Install skill: `npx skills add shadcn/ui` → project `.cursor/skills/shadcn/` (and/or `.agents/skills/shadcn/`)
+
+## Do
+
+- Before inventing a control, load the **shadcn** skill and use `npx shadcn@latest search` / `docs` / `add`
+- Compose pages from registry components (FieldGroup forms, Dialog/Sheet, Tabs, Table, Empty, Sonner, etc.)
+- Use semantic shadcn colors (`bg-primary`, `text-muted-foreground`) **inside** shadcn components
+- Keep product shell themed via Tokens (`t`)
+- Register every new meaningful region with the surface-boundary wrapper
+- Chrome / tree icons → product icon registry; control icons inside shadcn → lucide (per icons + shadcn rules)
+
+## Don't
+
+- Hand-roll Button / Dialog / Select / form layouts when shadcn already has them
+- Override shadcn component colors with raw hex or one-off Tailwind color utilities
+- Skip `components.json` — the skill activates fully when that file exists
+- Replace product shell patterns with a generic shadcn Sidebar without an explicit decision
+- Drop surface boundaries because a region uses shadcn primitives
+
+## Adapt for this repo
+
+- Point skill path at `.cursor/skills/shadcn/SKILL.md`
+- Point Tokens + HolonBoundary at real paths once they exist
+- Init under the app package that owns UI (e.g. `apps/<product>/`)
+
+## Bootstrap
+
+If `components.json` is missing and the task needs shadcn primitives, **init shadcn** in the UI package first, then add components. Align CSS variables with the product accent so shadcn and Tokens stay aligned.

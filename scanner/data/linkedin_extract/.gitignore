@@ -1,0 +1,4 @@
+# LinkedIn batch extract outputs (checkpoint + jsonl). Keep locally; do not commit large runs.
+*.jsonl
+checkpoint.json
+batch.log

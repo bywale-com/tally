@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="240" viewBox="0 0 520 240" fill="none">
+  <title>Invite business client later · same mechanism</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .block { fill:#e0e0e0 }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .arrow { stroke:#212121; stroke-width:2; fill:none; marker-end:url(#m) }
+  </style>
+  <defs>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#212121"/>
+    </marker>
+  </defs>
+
+  <text class="label" x="260" y="20" text-anchor="middle">Later · existing business client (same Invite)</text>
+
+  <rect class="frame" x="40" y="40" width="180" height="170" rx="8"/>
+  <rect class="chrome" x="40" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="130" y="32" text-anchor="middle">1 � Pick client</text>
+  <rect class="block" x="56" y="86" width="148" height="28" rx="14"/>
+  <rect class="block" x="56" y="128" width="148" height="14" rx="3"/>
+  <rect class="block" x="56" y="150" width="148" height="14" rx="3"/>
+
+  <path class="arrow" d="M230 130 H270"/>
+
+  <rect class="frame" x="280" y="40" width="180" height="170" rx="8"/>
+  <rect class="chrome" x="280" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="370" y="32" text-anchor="middle">2 � Same Invite</text>
+  <rect class="block" x="296" y="90" width="148" height="50" rx="4"/>
+  <rect class="cta" x="310" y="160" width="120" height="26" rx="4"/>
+</svg>

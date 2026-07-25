@@ -1,0 +1,40 @@
+---
+description: Parametric elimination — kill placating chrome; invite before form; no line-button mix
+globs: src/**/*.{tsx,ts,css}
+alwaysApply: true
+---
+
+# Parametric elimination
+
+**Thesis:** Constraints that kill the 4 — not a formula that generates an 8.  
+**Metaphor:** Prospect for attention; don’t placate every control.
+
+Full law: `docs/build-foundation/06-parametric-elimination.md`  
+Exemplars: `docs/build-foundation/06-parametric-elimination-applied.md`
+
+## Do
+
+- **One job per surface** — second job goes behind a door (popover, sheet, selected-only detail)
+- **Border budget** — remove boxes/hairlines/dashed frames that don’t serve the job
+- **Quiet until invited** — secondary tools as text/icon until intent; detail prose not on every row
+- **Invite before form** — consequence UI (reason pickers, dispute forms, confirm fields) stays **hidden until** the invite control is clicked; reset invite state on sheet close / object switch
+- **Stack rhythm** — in drawers: content → action cluster (primary, invite, optional form, quiet cancel) → spacer → footer. Do not park mid-actions in an `mt-auto` void
+- **Overlay inset** — `SheetContent` owns one pane inset (`p-6`); header/body share it. Never pad header-only while body hugs the chrome
+- **One loud action** per beat — demote the rest. Never mix filled + quiet text as peers on one action row (line-button problem)
+- **Don't placate empty chrome** — placeholders get muted lines, not equal section bars
+
+## Don't
+
+- Always-on filter grids / option stacks when a Filter (or similar) door would do
+- Paint a secondary-path form open next to the button that was supposed to reveal it
+- Leave Cancel / secondary actions floating in empty space above a footer
+- Header inset + edge-flush body in sheets (fix `sheet.tsx`, don’t band-aid per drawer)
+- `[Loud] [Quiet] [Quiet]` on one flex row
+- Dashed full-width secondary CTAs
+- Equal bordered section headers competing with the living index
+- Bordered cards + full body copy on every list row
+- Accent rings on every selectable item — prefer quiet selected state (hairline / wash / weight)
+
+## Grade a change
+
+Name the job → list doors vs work → count loud actions → count unnecessary borders → check invite-before-form → check stack rhythm → check overlay inset → check no line-button mix.

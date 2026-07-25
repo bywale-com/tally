@@ -1,0 +1,30 @@
+/**
+ * Prototype-carbon layout tweaks.
+ * Carbon tokens come from @carbon/styles; we only fix shell/content spacing
+ * so SideNav + Content coexist under Vite without inventing elevation/radius.
+ */
+
+.plant-carbon-root,
+.plant-carbon-shell {
+  /* Isolate from Tailwind preflight where Carbon owns the chrome */
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.plant-carbon-shell .cds--content {
+  margin-inline-start: 16rem;
+  padding: 2rem;
+  min-height: calc(100vh - 3rem);
+  background: var(--cds-background);
+  color: var(--cds-text-primary);
+}
+
+@media (max-width: 1055px) {
+  .plant-carbon-shell .cds--content {
+    margin-inline-start: 0;
+  }
+}
+
+.plant-carbon-root .cds--header ~ main,
+.plant-carbon-root > main {
+  padding-top: 3rem;
+}

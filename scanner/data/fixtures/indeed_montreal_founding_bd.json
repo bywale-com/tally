@@ -1,0 +1,56 @@
+{
+  "source": "indeed",
+  "captured_from": "https://ca.indeed.com/jobs?q=founding+business+development&l=Montreal%2C+QC&radius=25",
+  "captured_via": "firecrawl_stealth",
+  "notes": "Live HTTP is Cloudflare-blocked; this fixture is for offline Pull/shape + parser tests.",
+  "jobs": [
+    {
+      "title": "Manager, Business Development",
+      "company": "MaintainX",
+      "location": "Montréal, QC",
+      "url": "https://ca.indeed.com/viewjob?jk=41e89b24af223ad9",
+      "jk": "41e89b24af223ad9",
+      "snippet": "Build individual development plans for each rep with a defined path toward AE or team leadership."
+    },
+    {
+      "title": "Account Executive",
+      "company": "AppDirect",
+      "location": "Montréal, QC",
+      "url": "https://ca.indeed.com/viewjob?jk=1a15a9b0c5006ca8",
+      "jk": "1a15a9b0c5006ca8",
+      "snippet": "Cross-functionally coordinate internal resources needed to close new business."
+    },
+    {
+      "title": "Junior Business Development Representative",
+      "company": "Schaefer System International Limited",
+      "location": "Montréal, QC H2L 2R4",
+      "url": "https://ca.indeed.com/viewjob?jk=df8406dbbbdd05e3",
+      "jk": "df8406dbbbdd05e3",
+      "snippet": "Proven new business development results in a similar role."
+    },
+    {
+      "title": "Founding Sales Leader",
+      "company": "CGS Immersive",
+      "location": "Montréal, QC",
+      "url": "https://ca.indeed.com/viewjob?jk=9d9676272dc01698",
+      "jk": "9d9676272dc01698",
+      "snippet": "Strong executive presence and ability to translate operational pain into a measurable business case."
+    },
+    {
+      "title": "Founding Chief AI & Innovation Developer",
+      "company": "Unica College",
+      "location": "Westmount, QC",
+      "url": "https://ca.indeed.com/viewjob?jk=05c10fe9e9f51f4c",
+      "jk": "05c10fe9e9f51f4c",
+      "snippet": "Business development: 10 years (required). Innovation campus in Montréal."
+    },
+    {
+      "title": "Automation Business Development Manager",
+      "company": "Phoenix Contact Ltd",
+      "location": "Saint-Laurent, QC H4T 1S3",
+      "url": "https://ca.indeed.com/viewjob?jk=e5d9fc0b6ff31072",
+      "jk": "e5d9fc0b6ff31072",
+      "snippet": "Proven track record in business development or technical sales within automation in Canada."
+    }
+  ]
+}

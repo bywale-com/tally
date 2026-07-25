@@ -1,0 +1,40 @@
+---
+description: shadcn/ui — prefer composed primitives; keep Tokens + Holons for shell chrome
+globs: apps/tally/src/**/*.{tsx,ts,css}
+alwaysApply: true
+---
+
+# shadcn/ui (rudiment)
+
+Interactive UI primitives come from **shadcn/ui** — not one-off styled `div`s for buttons, dialogs, forms, tables, sheets, or empty states. Shell chrome stays on **Tokens + HolonBoundary + NotionIcon**.
+
+Official skill docs: https://ui.shadcn.com/docs/skills  
+Project skill: `.cursor/skills/shadcn/SKILL.md` (also `.agents/skills/shadcn/`)
+
+## Do
+
+- Before inventing a control, run / read the **shadcn** skill and use `npx shadcn@latest search` / `docs` / `add`
+- Compose pages from registry components (FieldGroup forms, Dialog/Sheet, Tabs, Table, Empty, Sonner, etc.)
+- Use semantic shadcn colors (`bg-primary`, `text-muted-foreground`) **inside** shadcn components
+- Keep product shell themed via `Tokens` (`t`) — see `theme-tokens.mdc`
+- Register every new meaningful region with `HolonBoundary` — see `surface-registry.mdc`
+- Chrome / tree icons → NotionIcon registry; control icons inside shadcn → lucide (per icons rule + shadcn icons rule)
+
+## Don't
+
+- Hand-roll Button / Dialog / Select / form layouts when shadcn already has them
+- Override shadcn component colors with raw hex or one-off Tailwind color utilities
+- Skip `components.json` — the skill activates fully when that file exists (init under `apps/tally` when adopting shadcn)
+- Replace Operator shell patterns (Board, Activity Bar, Console) with a generic shadcn Sidebar without an explicit product decision
+- Drop HolonBoundary because a region uses shadcn primitives
+
+## Paths
+
+- Skill: `.cursor/skills/shadcn/SKILL.md`
+- App: `apps/tally/`
+- Tokens: `apps/tally/src/app/components/tokens.ts`
+- HolonBoundary: `apps/tally/src/app/components/docs/HolonBoundary.tsx`
+
+## Bootstrap (when not yet initialized)
+
+If `apps/tally/components.json` is missing and the task needs shadcn primitives, **init shadcn in `apps/tally`** first (`npx shadcn@latest init`), then add components. Map CSS variables to brand purple (`#8B5CF6`) so shadcn and Tokens stay aligned.

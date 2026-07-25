@@ -1,0 +1,27 @@
+---
+description: World model — persona sits + admission before persona UI; no gate-as-badge
+globs: apps/tally/src/app/register/**/*.{ts,tsx}
+alwaysApply: true
+---
+
+# World model
+
+**Thesis:** So-that says who benefits next. World says what must be true for that person to see the shared object. Persona UI must follow admission — never paint gates as decision chrome.
+
+Full law: `docs/build-foundation/09-world-model.md`  
+Worked V1: `docs/register/WORLD.md`  
+Machine twin: `apps/tally/src/app/register/world/campaignWorld.ts`
+
+## Do
+
+- Before persona click-through or plant, check persona sit + Campaign admission matrix
+- Use `admits(persona, state)` / `workerAvailableAdmits` when deciding what appears in a view
+- Show only **decision** labels for that persona (e.g. Worker: `unclaimed`)
+- Keep **Never see** lists honest when adding screens
+
+## Don't
+
+- Advertise an admission gate on the row (e.g. Worker Available showing `funded`)
+- Put unfunded / unlaunched campaigns in the Worker queue
+- Fold other personas' screens into Operator (or any) click-through
+- Expand world into an encyclopedia — cohesive ecosystem only

@@ -57,9 +57,15 @@ cron fires once daily → all sources polled → regex filter → dedup against 
 - **Adzuna / Jooble:** free API tiers — later.
 - **Getro-powered VC portfolio boards:** later.
 
-### Tier 2: JobSpy
+### Tier 2: Indeed (search-first)
 
-- **`python-jobspy`** — LinkedIn, Indeed, Glassdoor, ZipRecruiter, Google Jobs. Not yet wired.
+- **Live:** Firecrawl stealth (`FIRECRAWL_API_KEY`) — direct HTTP is Cloudflare-blocked.
+- **Offline:** `data/fixtures/indeed_montreal_founding_bd.json`
+- **CLI:** `python -m tally_scanner indeed-search --url "https://ca.indeed.com/jobs?q=…&l=…"`
+- **Docs:** `docs/INDEED.md`
+- **JobSpy:** not used (Python 3.13 / numpy pin).
+
+### Tier 2b: JobSpy (other boards)
 
 ### Tier 3: Custom scrapers (build last, or never)
 
@@ -86,7 +92,7 @@ See `db/schema.sql`. Dedup key is `hash(company + title)` — **not** including 
 
 ## 5. LLM scorer — batch call
 
-Model: Claude via Anthropic API with web search. Prompt + JSON schema in `tally_scanner/scorer.py`. Unknown fields stay `"UNKNOWN"`.
+Model: OpenAI (`OPENAI_SCORE_MODEL`, default `gpt-4o`) with web search when available. Prompt + JSON schema in `tally_scanner/scorer.py`. Unknown fields stay `"UNKNOWN"`.
 
 ---
 

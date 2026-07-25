@@ -1,6 +1,19 @@
 # Tally Scanner — State Document
 
-**As of:** 2026-07-14  
+**As of:** 2026-07-15 — Deep Screener prompt calibrated to v2.1
+
+### Deep Screener calibration (v2.1)
+
+`tally_scanner/deep_screener.py` encodes operator corrections:
+- Verdict discrimination (call-ready vs conditional — ACV number alone does not downgrade)
+- Economic band + specific risk (never bare "verify ACV")
+- First-person scenarios; openers as standing-openness questions (no product pitch)
+- **Dialability > legibility ranking:** stated ACV / textbook confession must not crown #1 over short-cycle congruent dials; `legibility_trap` + `dialability_rank_hint` required
+- Layer 0: do not false-kill vertical ops SaaS on "infrastructure for the industry" marketing metaphor
+
+Smoke: `python data/smoke_aktos_vs_cgs.py` — Aktos call-ready hint 1; CGS conditional + legibility_trap.
+
+---
 **Owner:** Wale / Omcoda  
 **Scope:** `scanner/` in the Tally monorepo  
 **Audience:** Future you, coding agents, anyone picking this up cold
@@ -51,7 +64,7 @@ That posting *is* the lead. The scanner’s job is to find those confessions dai
         ↓
 [Postgres dedup]         ← hash(lower(company)|lower(title)); source NOT in key
         ↓  (new filter_status='in' only)
-[LLM scorer — Claude]    ← Tally rubric: ACV, confession quote, Lane A/B/DQ
+[LLM scorer — OpenAI]    ← Tally rubric: ACV, confession quote, Lane A/B/DQ
         ↓
 [Postgres results]       ← ranked / lane-tagged table for dialing
 ```
@@ -93,7 +106,7 @@ That posting *is* the lead. The scanner’s job is to find those confessions dai
 | `tally_scanner/sources/discovery.py` | Slug extraction from dorks (lighter helper) |
 | `tally_scanner/filter.py` | Phrase normalize + keyword gate (legacy regex tests still here) |
 | `tally_scanner/ai_filter.py` | OpenAI triage agent (`in`/`out` + reason) |
-| `tally_scanner/scorer.py` | Claude batch scorer (ACV + lanes) — wired, needs `ANTHROPIC_API_KEY` |
+| `tally_scanner/scorer.py` | OpenAI batch scorer (ACV + lanes) — wired, needs `OPENAI_API_KEY` |
 | `tally_scanner/db.py` | Upserts, truncate, list unscored INs |
 | `tally_scanner/api.py` | `GET /health`, `POST /run` |
 | `tally_scanner/notion_sink.py` | Legacy; opt-in via `--notion` |
@@ -125,9 +138,9 @@ That posting *is* the lead. The scanner’s job is to find those confessions dai
 | Var | Purpose |
 |-----|---------|
 | `DATABASE_URL` | Host-side Postgres URL |
-| `OPENAI_API_KEY` | AI triage (`gpt-4o-mini` default) |
-| `OPENAI_FILTER_MODEL` | Triage model |
-| `ANTHROPIC_API_KEY` | Scorer (Claude + web search) |
+| `OPENAI_API_KEY` | AI triage + scorer (only LLM provider) |
+| `OPENAI_FILTER_MODEL` | Triage model (`gpt-4o-mini` default) |
+| `OPENAI_SCORE_MODEL` | Scorer model (`gpt-4o` default; web search when available) |
 | `SEARXNG_URL` | Inside Compose: `http://searxng:8080` |
 | `NOTION_*` | Optional legacy sink |
 | `SCANNER_DRY_RUN` | Skip live LLM when true |
@@ -140,7 +153,7 @@ That posting *is* the lead. The scanner’s job is to find those confessions dai
 
 ```bash
 cd scanner
-cp .env.example .env   # set OPENAI_API_KEY; ANTHROPIC when scoring
+cp .env.example .env   # set OPENAI_API_KEY
 
 docker compose up -d postgres scanner adminer
 docker compose --profile searxng up -d   # needed for ATS search
@@ -148,10 +161,8 @@ docker compose --profile searxng up -d   # needed for ATS search
 # Search → AI triage → Postgres (no scorer)
 docker compose exec scanner python -m tally_scanner run --fresh --no-score --limit 30
 
-# Full path including Claude scoring
-docker compose exec scanner python -m tally_scanner run --no-score=false
-# or simply omit --no-score once ANTHROPIC_API_KEY is set:
-docker compose exec scanner python -m tally_scanner run
+# Full path including OpenAI scoring (same OPENAI_API_KEY)
+docker compose exec scanner python -m tally_scanner run --limit 20
 ```
 
 Useful flags:
@@ -160,7 +171,7 @@ Useful flags:
 |------|--------|
 | `--fresh` | `TRUNCATE postings, posting_sources` before run |
 | `--limit N` | Cap candidates entering AI triage |
-| `--no-score` | Skip Claude scorer |
+| `--no-score` | Skip OpenAI scorer |
 | `--no-discover` | Skip SearXNG/HN; only keyword-gate known slugs |
 | `--no-slug-boards` | Don’t expand `company_slugs` boards |
 | `--notion` | Opt-in Notion write |
@@ -214,7 +225,7 @@ Observed:
 
 **Aggregator skip:** `jobgether` (Lever mega-aggregator) added to `SKIP_BOARD_SLUGS` after it returned thousands of listings.
 
-**Scorer:** Not yet run end-to-end on this search cohort (needs Anthropic key + intentional batch).
+**Scorer:** OpenAI-only path ready; run without `--no-score` once key is set.
 
 ---
 
@@ -242,8 +253,8 @@ Observed:
 | 3 | Search queries + SearXNG ATS ingest + HN | ✅ |
 | 4 | AI triage (OpenAI) with in/out retained | ✅ |
 | 5 | Drop mega seeds; keyword-gated board expansion | ✅ |
-| 6 | Claude scorer E2E on search cohort → lanes/ACV in Postgres | ⬜ next |
-| 7 | JobSpy (LinkedIn / Indeed / Glassdoor / Google Jobs) | ⬜ |
+| 6 | OpenAI scorer E2E on search cohort → lanes/ACV in Postgres | ⬜ next |
+| 7 | JobSpy (LinkedIn / Indeed / Glassdoor / Google Jobs) | ⬜ → Indeed search-first via Firecrawl (see `docs/INDEED.md`); JobSpy blocked on Py3.13 |
 | 8 | Wellfound, YC Work at a Startup, Built In, Otta | ⬜ |
 | 9 | Sales/recruiter boards (Just Sales Jobs, RepVue, Rainmakers, Betts, …) | ⬜ |
 | 10 | RemoteOK / WWR / Adzuna / Jooble | ⬜ |

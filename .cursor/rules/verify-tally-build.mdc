@@ -1,0 +1,21 @@
+---
+description: Always verify apps/tally build after UI or import changes
+globs: apps/tally/src/**/*.{tsx,ts}
+alwaysApply: false
+---
+
+# Verify build (Tally app)
+
+After changing imports, shadcn UI, Vite aliases, or Operator/Register surfaces under `apps/tally`:
+
+## Do
+
+- Run from `apps/tally`: `npm run build` (runs `tsc -b && vite build`)
+- Fix resolve errors before claiming done — “file exists” is not enough if Vite can’t resolve `@/…`
+- Start/restart `npm run dev` **from `apps/tally`** (not monorepo root) so `vite.config.ts` aliases apply
+
+## Don't
+
+- Ship UI that only typechecks in the editor
+- Assume a running Vite process picked up new `src/components/ui` without a restart
+- Run `vite` from the repo root without the app’s config

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220" fill="none">
+  <title>Agency v2 - Clear gate, quiet Re-analyze</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .ink { fill:#212121; font: 11px system-ui,sans-serif }
+    .muted { fill:#9e9e9e; font: 10px system-ui,sans-serif }
+  </style>
+  <rect class="frame" x="1" y="1" width="198" height="218" rx="8"/>
+  <rect class="chrome" x="1" y="1" width="198" height="28" rx="8"/>
+  <text class="label" x="100" y="19" text-anchor="middle">5 - Agency</text>
+  <text class="muted" x="100" y="70" text-anchor="middle">dossier owns the beat</text>
+  <text class="muted" x="62" y="117" text-anchor="middle" style="font-size:10px">Re-analyze</text>
+  <rect class="cta" x="104" y="100" width="68" height="26" rx="3"/>
+  <text class="label" x="138" y="117" text-anchor="middle" style="fill:#fff">Clear</text>
+  <text class="muted" x="100" y="160" text-anchor="middle">one loud action</text>
+  <text class="muted" x="100" y="178" text-anchor="middle">Clear = disco gate</text>
+</svg>

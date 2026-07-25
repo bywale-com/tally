@@ -1,0 +1,21 @@
+{
+  "phase": 1,
+  "dry_run": true,
+  "merged_at": "2026-07-20T16:29:45.346267+00:00",
+  "parents": 113,
+  "similar_raw_from_parents": 1980,
+  "similar_unique_job_ids": 1980,
+  "similar_self_dupes_dropped": 0,
+  "similar_already_in_washed": 55,
+  "similar_already_primary": 50,
+  "similar_added": 1875,
+  "similar_light_enriched_existing": 0,
+  "primaries_seen": 113,
+  "jobs_enriched_from_primary": 0,
+  "primary_fields_filled": 0,
+  "jobs_before": 2944,
+  "jobs_after": 4819,
+  "net_job_delta": 1875,
+  "companies_after": 3218,
+  "companies_with_url": 3214
+}

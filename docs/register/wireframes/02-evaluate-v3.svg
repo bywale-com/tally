@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" fill="none">
+  <title>Evaluate v3 - minimalist dossier accordion and sticky notes</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .block { fill:#e0e0e0 }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .ink { fill:#212121; font: 11px system-ui,sans-serif }
+    .muted { fill:#9e9e9e; font: 10px system-ui,sans-serif }
+    .arrow { stroke:#212121; stroke-width:2; fill:none; marker-end:url(#m) }
+    .row { fill:#ffffff; stroke:#e0e0e0; stroke-width:1 }
+    .sticky { fill:#fff8c4; stroke:#e6d98a; stroke-width:1 }
+  </style>
+  <defs>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#212121"/>
+    </marker>
+  </defs>
+
+  <text class="label" x="640" y="18" text-anchor="middle">Disco - minimalist dossier (v3)</text>
+
+  <!-- 1 search -->
+  <rect class="frame" x="16" y="40" width="160" height="220" rx="8"/>
+  <rect class="chrome" x="16" y="40" width="160" height="28" rx="8"/>
+  <text class="label" x="96" y="32" text-anchor="middle">1 - Search</text>
+  <text class="muted" x="96" y="120" text-anchor="middle">Empty until type</text>
+  <path class="arrow" d="M186 150 H210"/>
+
+  <!-- 2 accordion like reference -->
+  <rect class="frame" x="220" y="40" width="280" height="220" rx="8"/>
+  <rect class="chrome" x="220" y="40" width="280" height="28" rx="8"/>
+  <text class="label" x="360" y="32" text-anchor="middle">2 - Accordion (icon + title)</text>
+  <rect class="row" x="236" y="80" width="248" height="28" rx="2"/>
+  <text class="ink" x="248" y="98" style="font-size:10px">[] Company name</text>
+  <text class="muted" x="460" y="98">v</text>
+  <rect class="row" x="236" y="108" width="248" height="56" rx="2"/>
+  <text class="ink" x="248" y="126" style="font-size:10px">[] Company description  * *</text>
+  <text class="muted" x="248" y="146" style="font-size:9px">Body only when open - no form boxes</text>
+  <rect class="row" x="236" y="164" width="248" height="28" rx="2"/>
+  <text class="ink" x="248" y="182" style="font-size:10px">[] ACV   (i)</text>
+  <rect class="row" x="236" y="192" width="248" height="28" rx="2"/>
+  <text class="ink" x="248" y="210" style="font-size:10px">[] One fact to verify</text>
+  <text class="muted" x="360" y="248" text-anchor="middle">clean titles - no Company . website</text>
+  <path class="arrow" d="M510 150 H534"/>
+
+  <!-- 3 unknown + info -->
+  <rect class="frame" x="544" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="544" y="40" width="180" height="28" rx="8"/>
+  <text class="label" x="634" y="32" text-anchor="middle">3 - Honest unknown</text>
+  <text class="ink" x="634" y="110" text-anchor="middle" style="font-weight:600">Can't be identified</text>
+  <text class="muted" x="634" y="140" text-anchor="middle">(i) explains the field</text>
+  <text class="muted" x="634" y="200" text-anchor="middle">pencil = sticky note</text>
+  <text class="muted" x="634" y="216" text-anchor="middle">not an input panel</text>
+  <path class="arrow" d="M734 150 H758"/>
+
+  <!-- 4 sticky note -->
+  <rect class="frame" x="768" y="40" width="200" height="220" rx="8"/>
+  <rect class="chrome" x="768" y="40" width="200" height="28" rx="8"/>
+  <text class="label" x="868" y="32" text-anchor="middle">4 - Sticky (cosmetic)</text>
+  <rect class="block" x="788" y="88" width="160" height="22" rx="3"/>
+  <text class="ink" x="796" y="103" style="font-size:10px">Scenario          [pencil]</text>
+  <rect class="sticky" x="804" y="128" width="128" height="72" rx="2"/>
+  <text class="ink" x="868" y="158" text-anchor="middle" style="font-size:9px">they said cycle</text>
+  <text class="ink" x="868" y="174" text-anchor="middle" style="font-size:9px">is ~6 months</text>
+  <text class="muted" x="868" y="230" text-anchor="middle">agent reads sticky</text>
+  <path class="arrow" d="M978 150 H1002"/>
+
+  <!-- 5 reanalyze icon + clear -->
+  <rect class="frame" x="1012" y="40" width="120" height="220" rx="8"/>
+  <rect class="chrome" x="1012" y="40" width="120" height="28" rx="8"/>
+  <text class="label" x="1072" y="32" text-anchor="middle">5 - Agency</text>
+  <circle cx="1072" cy="110" r="14" stroke="#212121" stroke-width="1.5" fill="none"/>
+  <text class="ink" x="1072" y="114" text-anchor="middle" style="font-size:10px">re</text>
+  <text class="muted" x="1072" y="148" text-anchor="middle">Re-analyze</text>
+  <rect class="cta" x="1032" y="168" width="80" height="26" rx="3"/>
+  <text class="label" x="1072" y="185" text-anchor="middle" style="fill:#fff">Clear</text>
+  <text class="muted" x="1072" y="230" text-anchor="middle">minimal chrome</text>
+
+  <!-- 6 ethos -->
+  <rect class="frame" x="1148" y="40" width="116" height="220" rx="8"/>
+  <rect class="chrome" x="1148" y="40" width="116" height="28" rx="8"/>
+  <text class="label" x="1206" y="32" text-anchor="middle">Ethos</text>
+  <text class="ink" x="1206" y="120" text-anchor="middle" style="font-weight:600">Minimalism</text>
+  <text class="muted" x="1206" y="150" text-anchor="middle">save space</text>
+  <text class="muted" x="1206" y="168" text-anchor="middle">reuse space</text>
+  <text class="muted" x="1206" y="186" text-anchor="middle">icons over</text>
+  <text class="muted" x="1206" y="204" text-anchor="middle">2005 boxes</text>
+</svg>

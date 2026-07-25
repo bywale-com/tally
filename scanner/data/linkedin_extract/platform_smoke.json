@@ -1,0 +1,1089 @@
+[
+  {
+    "url": "https://builtin.com/job/founding-account-executive/10216174",
+    "label": "builtin_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 751597,
+    "title_tag": "Founding Account Executive - Judgment Labs | Built In",
+    "h1": "<span class=\"mb-0\">Founding Account Executive</span>",
+    "json_ld_types": [
+      "JobPosting",
+      "BreadcrumbList"
+    ],
+    "description_snip": "",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://static.builtin.com/companies-assets/240403/logo/b1d9ccec-5ba5-41c5-ba00-8f70c6fa5867/Judgment Labs.jpg",
+    "salary_snip": "$190821897$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs",
+      "https://builtin.com/company/judgment-labs/jobs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676183,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://startup.jobs/founding-sales-leader-cgs-immersive-8752827",
+    "label": "startup_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 115543,
+    "title_tag": "Founding Sales Leader at CGS Immersive",
+    "h1": "Founding Sales Leader",
+    "json_ld_types": [
+      "JobPosting",
+      "BreadcrumbList",
+      "BreadcrumbList"
+    ],
+    "description_snip": "",
+    "company_name_snip": "CGS Immersive",
+    "website_snip": "",
+    "salary_snip": "$50K–$250K ACV range (comfortable with $25K",
+    "company_links": [],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730038,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$995485874$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676183,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$265664415$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730038,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$756443075$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730038,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$242390327$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730054,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$52992495758$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676183,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730043,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$3527384906$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676183,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730062,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$012459115$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730047,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$9454255764$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730033,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$08247787$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$511227678$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$263970586$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676191,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676183,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$979294939$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$544391939$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676187,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$988936189$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730046,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$470747559$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676183,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730043,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$6077731915$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730504,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$19689877$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730515,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$265308081$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730041,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$7272959726$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$340282706$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730064,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$865884836$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730043,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$9354327808$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676185,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676183,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$777065615$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730043,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$2794951724$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730031,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$95019887$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730031,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$93603869$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 676181,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730044,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$439128926$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730041,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$4345169593$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730036,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$817961973$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": true,
+    "status_code": 200,
+    "html_len": 730048,
+    "title_tag": "Judgment Labs Careers, Perks + Culture | Built In",
+    "h1": "Judgment Labs",
+    "json_ld_types": [
+      "Organization",
+      "BreadcrumbList"
+    ],
+    "description_snip": "Judgment Labs builds agent behavior monitoring (ABM) infrastructure.\\n\\nJudgment provides a toolkit to track and judge agent behavior in online and offline setups, enabling you to convert high-signal interaction data from production/test environments into more reliable agents.",
+    "company_name_snip": "Judgment Labs",
+    "website_snip": "https://judgmentlabs.ai/",
+    "salary_snip": "$603052247$-->:export{fadeTransitionTime:700ms;sli",
+    "company_links": [
+      "https://builtin.com/company/judgment-labs"
+    ],
+    "related_job_links": []
+  },
+  {
+    "url": "https://builtin.com/company/judgment-labs",
+    "label": "builtin_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_company_from_job",
+    "ok": false,
+    "status_code": 429,
+    "html_len": 27417,
+    "title_tag": "Just a moment...",
+    "h1": "builtin.com",
+    "json_ld_types": [],
+    "description_snip": "",
+    "company_name_snip": "",
+    "website_snip": "",
+    "salary_snip": "",
+    "company_links": [],
+    "related_job_links": []
+  }
+]

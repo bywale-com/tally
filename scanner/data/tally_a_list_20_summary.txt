@@ -1,0 +1,22 @@
+rows=20
+
+1. AI systems that review the world’s work | Founding Account Executive | conditional | lane=A | acv=UNKNOWN
+2. AI-driven solution to eliminate reviews and enhance meaningful work | Founding AE | conditional | lane=A | acv=UNKNOWN
+3. AI-powered full suite ERP solution for the aviation supply chain | Founding Account Executive | conditional | lane=A | acv=UNKNOWN
+4. Debt collection software for agencies | Founding Account Executive | conditional | lane=A | acv=UNKNOWN
+5. agentic marketing platform for AI era | Founding Account Executive | conditional | lane=A | acv=UNKNOWN
+6. agentic marketing platform for AI era | Founding Account Executive | conditional | lane=A | acv=UNKNOWN
+7. job board software for organizations running white-label job boards | HN: founding account executive — Niceboard | conditional | lane=A | acv=UNKNOWN
+8. modern and all-in-one ticketing, fundraising, CRM software for performing arts organizations | Founding Account Executive | conditional | lane=A | acv=UNKNOWN
+9. renewal enhancement platform for companies with existing CRM and customer success tools | Founding Sales Leader | conditional | lane=A | acv=$50K–$250K
+10. tech-driven logistics platform for e-commerce brands | Founding Account Executive 🇩🇪 | conditional | lane=A | acv=UNKNOWN
+11. tech-driven logistics platform for e-commerce brands | Founding Sales Development Representative 🇩🇪 | conditional | lane=A | acv=UNKNOWN
+12. AI-native platform for financial-services firms to improve client conversations | Enterprise Account Executive | conditional | lane=A | acv=UNKNOWN
+13. POS platform for restaurateurs and retailers | Field Sales Team Manager (Retail SaaS) | conditional | lane=A | acv=UNKNOWN
+14. product for businesses with mobile service employees to track location, tasks, and hours | HN: first sales hire — NextPunch / B2B SaaS / Sales [Manager] (first sales hire) | conditional | lane=A | acv=UNKNOWN
+15. AI virtual assistant for teams to summarize and derive insights from meetings | Sales Development Generalist | conditional | lane=A | acv=UNKNOWN
+16. AI virtual assistant for teams to summarize, synthesize, and derive insights from meetings | Sales Development Rep - Generalist | conditional | lane=A | acv=UNKNOWN
+17. POS platform for restaurateurs and retailers | Retail Sales District Manager | conditional | lane=A | acv=UNKNOWN
+18. POS platform for retail and food & beverage businesses | Retail Account Executive | conditional | lane=A | acv=UNKNOWN
+19. POS platform for retail and food & beverage businesses | Retail Account Executive (Calgary, AB) | conditional | lane=A | acv=UNKNOWN
+20. technology solutions for the restaurant industry | Territory Account Executive | conditional | lane=A | acv=UNKNOWN

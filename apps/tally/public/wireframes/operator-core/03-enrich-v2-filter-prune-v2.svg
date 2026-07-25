@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="220" viewBox="0 0 280 220" fill="none">
+  <title>Filter + prune v2 - Tower craft filters</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .ink { fill:#212121; font: 11px system-ui,sans-serif }
+    .muted { fill:#9e9e9e; font: 10px system-ui,sans-serif }
+    .row { fill:#ffffff; stroke:#e0e0e0; stroke-width:1 }
+    .chip { fill:#eeeeee }
+  </style>
+  <rect class="frame" x="1" y="1" width="278" height="218" rx="8"/>
+  <rect class="chrome" x="1" y="1" width="278" height="28" rx="8"/>
+  <text class="label" x="140" y="19" text-anchor="middle">3 - Filter + prune</text>
+  <text class="ink" x="16" y="48" style="font-weight:600;font-size:11px">Firmographics</text>
+  <text class="muted" x="16" y="62">4 firms - 4 matching</text>
+  <rect x="150" y="36" width="54" height="20" rx="5" fill="transparent"/>
+  <text class="muted" x="156" y="50" style="font-size:10px">+ Add</text>
+  <rect x="208" y="36" width="56" height="20" rx="5" class="chip"/>
+  <text class="ink" x="236" y="50" text-anchor="middle" style="font-size:10px">Filter</text>
+  <rect class="chip" x="16" y="72" width="72" height="18" rx="5"/>
+  <text class="muted" x="52" y="85" text-anchor="middle" style="font-size:9px">HQ Chicago</text>
+  <rect class="chip" x="94" y="72" width="70" height="18" rx="5"/>
+  <text class="muted" x="129" y="85" text-anchor="middle" style="font-size:9px">Wellfound</text>
+  <text class="muted" x="174" y="85" style="font-size:9px">Clear</text>
+  <rect class="row" x="16" y="100" width="248" height="18" rx="2"/>
+  <text class="ink" x="24" y="113" style="font-size:9px">matched rows - remove / restore</text>
+  <rect class="row" x="16" y="126" width="248" height="18" rx="2"/>
+  <text class="ink" x="24" y="139" style="font-size:9px">Cannot be identified = honest</text>
+  <rect class="cta" x="100" y="168" width="80" height="26" rx="3"/>
+  <text class="label" x="140" y="185" text-anchor="middle" style="fill:#fff">Deploy</text>
+</svg>

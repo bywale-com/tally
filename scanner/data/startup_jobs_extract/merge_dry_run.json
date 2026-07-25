@@ -1,0 +1,17 @@
+{
+  "platform": "startup_jobs",
+  "dry_run": true,
+  "merged_at": "2026-07-21T15:07:26.955238+00:00",
+  "primaries_seen": 2,
+  "jobs_enriched_from_primary": 2,
+  "primary_fields_filled": 7,
+  "related_raw": 7,
+  "related_unique": 7,
+  "related_already_primary": 0,
+  "related_already_washed": 0,
+  "related_added": 7,
+  "jobs_before": 4819,
+  "jobs_after": 4826,
+  "net_job_delta": 7,
+  "companies_after": 3218
+}

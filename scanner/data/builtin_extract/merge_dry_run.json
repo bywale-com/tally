@@ -1,0 +1,17 @@
+{
+  "platform": "builtin",
+  "dry_run": true,
+  "merged_at": "2026-07-21T15:07:26.213541+00:00",
+  "primaries_seen": 2,
+  "jobs_enriched_from_primary": 2,
+  "primary_fields_filled": 4,
+  "related_raw": 8,
+  "related_unique": 8,
+  "related_already_primary": 0,
+  "related_already_washed": 2,
+  "related_added": 6,
+  "jobs_before": 4819,
+  "jobs_after": 4825,
+  "net_job_delta": 6,
+  "companies_after": 3218
+}

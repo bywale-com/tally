@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" viewBox="0 0 1000 300" fill="none">
+  <title>Demo · invite, fund, launch lo-fi strip</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .block { fill:#e0e0e0 }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .arrow { stroke:#212121; stroke-width:2; fill:none; marker-end:url(#m) }
+    .sheet { fill:#f5f5f5; stroke:#bdbdbd; stroke-width:1.5 }
+  </style>
+  <defs>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#212121"/>
+    </marker>
+  </defs>
+
+  <text class="label" x="500" y="18" text-anchor="middle">Demo · first sale (non-business)</text>
+
+  <!-- 1 firm list walk -->
+  <rect class="frame" x="16" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="16" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="106" y="32" text-anchor="middle">1 � Firm list</text>
+  <rect class="block" x="32" y="80" width="148" height="18" rx="3"/>
+  <rect class="block" x="32" y="106" width="148" height="18" rx="3"/>
+  <rect class="block" x="32" y="132" width="148" height="18" rx="3"/>
+  <rect class="block" x="32" y="158" width="148" height="18" rx="3"/>
+  <text class="label" x="106" y="210" text-anchor="middle">remove / add</text>
+  <rect class="cta" x="48" y="220" width="100" height="22" rx="4"/>
+
+  <path class="arrow" d="M204 230 H236"/>
+
+  <!-- 2 invite -->
+  <rect class="frame" x="244" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="244" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="334" y="32" text-anchor="middle">2 � Invite</text>
+  <rect class="block" x="260" y="90" width="148" height="70" rx="4"/>
+  <rect class="cta" x="280" y="200" width="108" height="28" rx="4"/>
+  <text class="label" x="334" y="218" text-anchor="middle" style="fill:#fff">Send invite</text>
+
+  <path class="arrow" d="M432 214 H464"/>
+
+  <!-- 3 client accept + fund (their surface) -->
+  <rect class="frame" x="472" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="472" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="562" y="32" text-anchor="middle">3 � Client side</text>
+  <rect class="sheet" x="488" y="120" width="148" height="120" rx="8"/>
+  <rect class="block" x="504" y="140" width="116" height="10" rx="2"/>
+  <rect class="block" x="504" y="160" width="116" height="28" rx="4"/>
+  <rect class="cta" x="504" y="200" width="116" height="24" rx="4"/>
+  <text class="label" x="562" y="110" text-anchor="middle">accept + fund</text>
+
+  <path class="arrow" d="M660 214 H692"/>
+
+  <!-- 4 launch / running -->
+  <rect class="frame" x="700" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="700" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="790" y="32" text-anchor="middle">4 � Launch</text>
+  <rect class="block" x="720" y="100" width="50" height="18" rx="9"/>
+  <rect class="block" x="720" y="136" width="140" height="60" rx="4"/>
+  <text class="label" x="790" y="220" text-anchor="middle">running</text>
+
+  <text class="label" x="920" y="140">fund H</text>
+  <text class="label" x="920" y="156">launch V1</text>
+</svg>

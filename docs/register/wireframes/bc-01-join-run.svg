@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" viewBox="0 0 1000 300" fill="none">
+  <title>Business client: join, fund, get notified, respond, stop or reclaim lo-fi strip</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .block { fill:#e0e0e0 }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .arrow { stroke:#212121; stroke-width:2; fill:none; marker-end:url(#m) }
+    .dot { fill:#9e9e9e }
+  </style>
+  <defs>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#212121"/>
+    </marker>
+  </defs>
+
+  <text class="label" x="500" y="18" text-anchor="middle">Tally business client - join, fund, get notified, respond, stop or reclaim</text>
+
+  <!-- 1 join + fund -->
+  <rect class="frame" x="16" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="16" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="106" y="32" text-anchor="middle">1 - Join + fund</text>
+  <rect class="block" x="32" y="80" width="148" height="18" rx="3"/>
+  <rect class="block" x="32" y="106" width="148" height="18" rx="3"/>
+  <text class="label" x="106" y="150" text-anchor="middle">invited campaign</text>
+  <rect class="cta" x="48" y="200" width="116" height="24" rx="4"/>
+  <text class="label" x="106" y="217" text-anchor="middle" style="fill:#fff">Join + fund</text>
+
+  <path class="arrow" d="M204 212 H236"/>
+
+  <!-- 2 progress notify -->
+  <rect class="frame" x="244" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="244" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="334" y="32" text-anchor="middle">2 - Progress notify</text>
+  <rect class="block" x="260" y="82" width="148" height="12" rx="6"/>
+  <rect class="block" x="260" y="82" width="96" height="12" rx="6"/>
+  <text class="label" x="334" y="112" text-anchor="middle">campaign progress</text>
+  <circle class="dot" cx="272" cy="150" r="4"/>
+  <text class="label" x="340" y="154" text-anchor="middle">notification arrives</text>
+
+  <path class="arrow" d="M432 214 H464"/>
+
+  <!-- 3 respond -->
+  <rect class="frame" x="472" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="472" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="562" y="32" text-anchor="middle">3 - Respond</text>
+  <rect class="block" x="488" y="80" width="148" height="60" rx="4"/>
+  <text class="label" x="562" y="164" text-anchor="middle">notification detail</text>
+  <rect class="cta" x="504" y="200" width="116" height="24" rx="4"/>
+  <text class="label" x="562" y="217" text-anchor="middle" style="fill:#fff">Respond</text>
+
+  <path class="arrow" d="M660 212 H692"/>
+
+  <!-- 4 stop or reclaim -->
+  <rect class="frame" x="700" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="700" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="790" y="32" text-anchor="middle">4 - Stop / reclaim</text>
+  <rect class="block" x="716" y="80" width="148" height="16" rx="3"/>
+  <text class="label" x="790" y="112" text-anchor="middle">active campaign</text>
+  <rect class="cta" x="716" y="150" width="70" height="22" rx="4"/>
+  <text class="label" x="751" y="165" text-anchor="middle" style="fill:#fff">Stop</text>
+  <rect class="cta" x="794" y="150" width="78" height="22" rx="4"/>
+  <text class="label" x="833" y="165" text-anchor="middle" style="fill:#fff">Recollect</text>
+  <text class="label" x="790" y="200" text-anchor="middle">unused funds returned</text>
+
+  <text class="label" x="920" y="140">Business client only</text>
+  <text class="label" x="920" y="156">Worker runs the campaign</text>
+</svg>

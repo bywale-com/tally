@@ -1,0 +1,32 @@
+{
+  "phase": 1,
+  "dry_run": false,
+  "merged_at": "2026-07-20T16:30:39.820282+00:00",
+  "parents": 113,
+  "similar_raw_from_parents": 1980,
+  "similar_unique_job_ids": 1980,
+  "similar_self_dupes_dropped": 0,
+  "similar_already_in_washed": 55,
+  "similar_already_primary": 50,
+  "similar_added": 1875,
+  "similar_light_enriched_existing": 0,
+  "primaries_seen": 113,
+  "jobs_enriched_from_primary": 74,
+  "primary_fields_filled": 74,
+  "jobs_before": 2944,
+  "jobs_after": 4819,
+  "net_job_delta": 1875,
+  "backups": [
+    "C:\\Users\\Admin\\Documents\\Wale Omotayo\\Apps\\tally\\scanner\\data\\linkedin_extract\\merge_backups\\washed-jobs.phase1.20260720T163039Z.json",
+    "C:\\Users\\Admin\\Documents\\Wale Omotayo\\Apps\\tally\\scanner\\data\\linkedin_extract\\merge_backups\\washed-companies.phase1.20260720T163039Z.json"
+  ],
+  "published_jobs": 4819,
+  "published_companies": 3218,
+  "published_companies_with_url": 3214,
+  "published_relevance": {
+    "founding_sales": 614,
+    "sales": 2255,
+    "other": 1744,
+    "founding": 206
+  }
+}

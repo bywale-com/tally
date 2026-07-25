@@ -53,3 +53,6 @@ CREATE INDEX IF NOT EXISTS idx_company_slugs_ats
 -- No mega-corp seeds. company_slugs is filled by search discovery
 -- (SearXNG ATS dorks) or hand-curated early-stage boards only.
 
+-- LinkedIn graph crawl tables: applied from crawl_schema.sql on existing DBs.
+-- Fresh docker init: also run crawl_schema.sql (same folder).
+

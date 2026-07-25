@@ -1,0 +1,729 @@
+{
+  "name": "Tally — LinkedIn Job Graph Crawler",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## LinkedIn = graph source\nOne seed URL → primary JSON-LD job + ~30 discovery cards.\nGoverned loop: harvest → queue → refeed.\n\n**Deferred:** website resolution, cross-source merge.",
+        "height": 220,
+        "width": 340,
+        "color": 5
+      },
+      "id": "note-overview",
+      "name": "Architecture",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-320, -200]
+    },
+    {
+      "parameters": {
+        "content": "## Pacing\n1. Baseline 4–9s after each page\n2. Coffee 30–60s every N pages\n3. Back-off 120s + one retry, then STOP\n4. Governor: max_hops + max_pages",
+        "height": 200,
+        "width": 300,
+        "color": 4
+      },
+      "id": "note-pacing",
+      "name": "Pacing notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-320, 80]
+    },
+    {
+      "parameters": {
+        "formTitle": "LinkedIn graph crawl",
+        "formDescription": "Seed a guest /jobs/view/ URL. The run harvests the job, queues similar-job URLs, and loops until hop/page limits.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "seed_url",
+              "fieldType": "text",
+              "requiredField": true,
+              "placeholder": "https://www.linkedin.com/jobs/view/...."
+            },
+            {
+              "fieldLabel": "max_hops",
+              "fieldType": "number",
+              "requiredField": false,
+              "placeholder": "2"
+            },
+            {
+              "fieldLabel": "max_pages",
+              "fieldType": "number",
+              "requiredField": false,
+              "placeholder": "25"
+            },
+            {
+              "fieldLabel": "coffee_every",
+              "fieldType": "number",
+              "requiredField": false,
+              "placeholder": "12"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "trigger-form",
+      "name": "Start Crawl",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [0, 0],
+      "webhookId": "linkedin-graph-crawl-start"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "seed_url",
+              "value": "={{ $json.seed_url }}",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "max_hops",
+              "value": "={{ Number($json.max_hops) > 0 ? Number($json.max_hops) : 2 }}",
+              "type": "number"
+            },
+            {
+              "id": "a3",
+              "name": "max_pages",
+              "value": "={{ Number($json.max_pages) > 0 ? Number($json.max_pages) : 25 }}",
+              "type": "number"
+            },
+            {
+              "id": "a4",
+              "name": "coffee_every",
+              "value": "={{ Number($json.coffee_every) > 0 ? Number($json.coffee_every) : 12 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-config",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [260, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Init in-memory queue + seen set for this governed run.\n * Cross-run dedupe: wire a Sheets Read beforehand and pass known job_ids into seen.\n */\nconst cfg = items[0].json;\nconst seed = String(cfg.seed_url || '').trim();\nif (!seed || !/linkedin\\.com\\/jobs\\/view\\//i.test(seed)) {\n  throw new Error('seed_url must be a LinkedIn /jobs/view/ guest URL');\n}\n\nfunction jobIdFromUrl(url) {\n  const m = String(url).match(/\\/jobs\\/view\\/[^/?#]*?(\\d{6,})(?:[/?#]|$)/i);\n  return m ? m[1] : null;\n}\n\nconst seedId = jobIdFromUrl(seed) || `seed-${Date.now()}`;\nconst staticData = $getWorkflowStaticData('global');\nstaticData.crawl = {\n  seed_url: seed,\n  max_hops: Number(cfg.max_hops) || 2,\n  max_pages: Number(cfg.max_pages) || 25,\n  coffee_every: Number(cfg.coffee_every) || 12,\n  pages_fetched: 0,\n  abnormal_streak: 0,\n  seen: { [seedId]: true },\n  queue: [{ url: seed.split('?')[0], hop: 0, job_id: seedId, discovered_from_job_id: '' }],\n  started_at: new Date().toISOString(),\n};\n\nreturn [{ json: { ok: true, seed_url: seed, seed_job_id: seedId, queue_len: 1 } }];"
+      },
+      "id": "code-init",
+      "name": "Init Queue",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "/** Pop next queued URL under governor. Dedupe is at enqueue-time (seen), not at pop. */\nconst staticData = $getWorkflowStaticData('global');\nconst crawl = staticData.crawl;\nif (!crawl) throw new Error('Crawl state missing — run Init Queue first');\n\nif (crawl.pages_fetched >= crawl.max_pages) {\n  return [{ json: { has_next: false, reason: 'max_pages', pages_fetched: crawl.pages_fetched } }];\n}\n\nwhile (crawl.queue.length) {\n  const next = crawl.queue.shift();\n  if (!next || !next.url) continue;\n  if (Number(next.hop) > Number(crawl.max_hops)) continue;\n  return [{\n    json: {\n      has_next: true,\n      url: next.url,\n      hop: Number(next.hop) || 0,\n      job_id: next.job_id || '',\n      discovered_from_job_id: next.discovered_from_job_id || '',\n      pages_fetched: crawl.pages_fetched,\n      queue_remaining: crawl.queue.length,\n      max_hops: crawl.max_hops,\n      max_pages: crawl.max_pages,\n      coffee_every: crawl.coffee_every,\n      seed_url: crawl.seed_url,\n    },\n  }];\n}\n\nreturn [{ json: { has_next: false, reason: 'queue_empty', pages_fetched: crawl.pages_fetched } }];"
+      },
+      "id": "code-pop",
+      "name": "Pop Next URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-has-next",
+              "leftValue": "={{ $json.has_next }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-has-next",
+      "name": "Has Next?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [1000, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d1",
+              "name": "status",
+              "value": "complete",
+              "type": "string"
+            },
+            {
+              "id": "d2",
+              "name": "reason",
+              "value": "={{ $json.reason }}",
+              "type": "string"
+            },
+            {
+              "id": "d3",
+              "name": "pages_fetched",
+              "value": "={{ $json.pages_fetched }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-done",
+      "name": "Crawl Complete",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1280, -220]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 30000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
+      },
+      "id": "http-fetch",
+      "name": "Fetch Guest Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1280, 80],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "/** Classify LinkedIn guest response for back-off logic. */\nconst prev = $('Pop Next URL').item.json;\nconst res = items[0].json;\nconst status = Number(res.statusCode || res.status || 0);\nconst body = String(res.body ?? res.data ?? '');\nconst ms = Number(res.headers && (res.headers['x-n8n-duration'] || 0)) || 0;\n\nconst empty = body.length < 800;\nconst authwall = /join linkedin|sign in|authwall|challenge/i.test(body);\nconst abnormal =\n  status === 0 ||\n  status >= 400 ||\n  empty ||\n  authwall ||\n  !/application\\/ld\\+json|base-card|job-details/i.test(body);\n\nreturn [{\n  json: {\n    ...prev,\n    statusCode: status,\n    body_len: body.length,\n    html: body,\n    abnormal,\n    abnormal_reason: abnormal\n      ? (status >= 400 ? `http_${status}` : empty ? 'empty_body' : authwall ? 'authwall' : 'missing_markers')\n      : '',\n    fetch_attempt: 1,\n  },\n}];"
+      },
+      "id": "code-classify",
+      "name": "Classify Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 80]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-abnormal",
+              "leftValue": "={{ $json.abnormal }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-abnormal",
+      "name": "Abnormal?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [1760, 80]
+    },
+    {
+      "parameters": {
+        "amount": 120,
+        "unit": "seconds"
+      },
+      "id": "wait-backoff",
+      "name": "Backoff Wait 120s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2000, -120],
+      "webhookId": "linkedin-backoff-wait"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 30000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
+      },
+      "id": "http-retry",
+      "name": "Retry Guest Page Once",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2240, -120],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prev = $('Classify Response').item.json;\nconst res = items[0].json;\nconst status = Number(res.statusCode || res.status || 0);\nconst body = String(res.body ?? res.data ?? '');\nconst empty = body.length < 800;\nconst authwall = /join linkedin|sign in|authwall|challenge/i.test(body);\nconst abnormal =\n  status === 0 ||\n  status >= 400 ||\n  empty ||\n  authwall ||\n  !/application\\/ld\\+json|base-card|job-details/i.test(body);\n\nreturn [{\n  json: {\n    ...prev,\n    statusCode: status,\n    body_len: body.length,\n    html: body,\n    abnormal,\n    abnormal_reason: abnormal\n      ? (status >= 400 ? `http_${status}` : empty ? 'empty_body' : authwall ? 'authwall' : 'missing_markers')\n      : '',\n    fetch_attempt: 2,\n  },\n}];"
+      },
+      "id": "code-classify-retry",
+      "name": "Classify Retry",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2480, -120]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-retry-bad",
+              "leftValue": "={{ $json.abnormal }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-retry-bad",
+      "name": "Retry Still Bad?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [2720, -120]
+    },
+    {
+      "parameters": {
+        "errorMessage": "=LinkedIn guest fetch aborted after back-off retry. reason={{ $json.abnormal_reason }} status={{ $json.statusCode }} url={{ $json.url }}"
+      },
+      "id": "stop-error",
+      "name": "Stop — Soft Block Likely",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [2980, -240]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "sourceData": "json",
+        "dataPropertyName": "html",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "jsonld",
+              "cssSelector": "script[type=\"application/ld+json\"]",
+              "returnValue": "text",
+              "returnArray": true
+            },
+            {
+              "key": "similar_raw",
+              "cssSelector": ".base-card",
+              "returnValue": "html",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "html-extract",
+      "name": "HTML Extract (JSON-LD + cards)",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [2000, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "/** Step 3a — Parse contract-grade JobPosting from JSON-LD. */\nconst extracted = items[0].json;\n// ctx fields (url/hop/...) ride through from Classify*; extract adds jsonld + similar_raw\nconst ctx = extracted;\nlet blocks = extracted.jsonld;\nif (!Array.isArray(blocks)) blocks = blocks ? [blocks] : [];\n\nfunction parseMaybeJson(s) {\n  if (s == null) return null;\n  if (typeof s === 'object') return s;\n  try { return JSON.parse(String(s)); } catch { return null; }\n}\n\nlet posting = null;\nfor (const b of blocks) {\n  const obj = parseMaybeJson(b);\n  if (!obj) continue;\n  const candidates = Array.isArray(obj) ? obj : (obj['@graph'] || [obj]);\n  for (const c of candidates) {\n    const t = c && c['@type'];\n    const types = Array.isArray(t) ? t : [t];\n    if (types.map(String).some((x) => /JobPosting/i.test(x))) {\n      posting = c;\n      break;\n    }\n  }\n  if (posting) break;\n}\n\nfunction jobIdFromUrl(url) {\n  const m = String(url || '').match(/\\/jobs\\/view\\/[^/?#]*?(\\d{6,})(?:[/?#]|$)/i);\n  return m ? m[1] : null;\n}\n\nfunction companySlug(url) {\n  const m = String(url || '').match(/linkedin\\.com\\/company\\/([^/?#]+)/i);\n  return m ? decodeURIComponent(m[1]) : '';\n}\n\nfunction companyHost(url) {\n  try {\n    return new URL(url).host.toLowerCase();\n  } catch {\n    return '';\n  }\n}\n\nfunction founderHint(desc) {\n  const text = String(desc || '');\n  const patterns = [\n    /report(?:ing)? to\\s+([A-Z][a-z]+(?:\\s+[A-Z][a-z]+){0,2})/,\n    /founded by\\s+([A-Z][a-z]+(?:\\s+[A-Z][a-z]+){0,2})/i,\n    /CEO[,\\s]+([A-Z][a-z]+(?:\\s+[A-Z][a-z]+){0,2})/,\n  ];\n  for (const re of patterns) {\n    const m = text.match(re);\n    if (m) return m[1];\n  }\n  return '';\n}\n\nconst org = (posting && posting.hiringOrganization) || {};\nconst loc = (posting && posting.jobLocation) || {};\nconst place = (loc && loc.address) || loc || {};\nconst geo = (loc && loc.geo) || {};\nconst exp = (posting && posting.experienceRequirements) || {};\nconst months = exp.monthsOfExperience ?? exp.months_of_experience ?? '';\n\nconst url = ctx.url;\nconst job_id = ctx.job_id || jobIdFromUrl(url) || jobIdFromUrl(posting && posting.url) || '';\nconst companyUrl = org.sameAs || org.url || '';\n\nconst primary = {\n  job_id,\n  source: 'linkedin',\n  fidelity: 'primary',\n  url,\n  title: (posting && posting.title) || '',\n  description: (posting && posting.description) || '',\n  employment_type: (posting && posting.employmentType) || '',\n  date_posted: (posting && posting.datePosted) || '',\n  valid_through: (posting && posting.validThrough) || '',\n  location: place.addressLocality\n    || place.addressRegion\n    || [place.addressLocality, place.addressRegion, place.addressCountry].filter(Boolean).join(', ')\n    || (typeof place === 'string' ? place : ''),\n  geo_lat: geo.latitude || '',\n  geo_lng: geo.longitude || '',\n  months_of_experience: months,\n  founder_or_report_line: founderHint(posting && posting.description),\n  company_name: org.name || '',\n  company_linkedin_url: companyUrl,\n  company_slug: companySlug(companyUrl),\n  company_host: companyHost(companyUrl),\n  salary_raw: '',\n  hop: ctx.hop,\n  scraped_at: new Date().toISOString(),\n  seed_url: ctx.seed_url,\n  discovered_from_job_id: ctx.discovered_from_job_id || '',\n  parse_ok: Boolean(posting),\n};\n\nreturn [{\n  json: {\n    ctx,\n    similar_raw: extracted.similar_raw || [],\n    primary,\n  },\n}];"
+      },
+      "id": "code-parse-main",
+      "name": "Parse Main Job (JSON-LD)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2280, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "/** Step 3b — Harvest similar-jobs / people-also-viewed cards (lower fidelity). */\nconst input = items[0].json;\nconst cards = Array.isArray(input.similar_raw) ? input.similar_raw : (input.similar_raw ? [input.similar_raw] : []);\nconst parentId = input.primary.job_id;\nconst parentHop = Number(input.ctx.hop) || 0;\n\nfunction jobIdFromUrl(url) {\n  const m = String(url || '').match(/\\/jobs\\/view\\/[^/?#]*?(\\d{6,})(?:[/?#]|$)/i);\n  return m ? m[1] : null;\n}\n\nfunction absUrl(href) {\n  if (!href) return '';\n  if (/^https?:\\/\\//i.test(href)) return href.split('?')[0];\n  if (href.startsWith('/')) return `https://www.linkedin.com${href.split('?')[0]}`;\n  return '';\n}\n\nfunction firstMatch(html, re) {\n  const m = String(html).match(re);\n  return m ? (m[1] || '').trim() : '';\n}\n\nfunction companySlug(url) {\n  const m = String(url || '').match(/linkedin\\.com\\/company\\/([^/?#]+)/i);\n  return m ? decodeURIComponent(m[1]) : '';\n}\n\nfunction companyHost(url) {\n  try { return new URL(url).host.toLowerCase(); } catch { return ''; }\n}\n\nconst discoveries = [];\nfor (const raw of cards) {\n  const html = String(raw || '');\n  if (!html) continue;\n  const href = firstMatch(html, /href=\"([^\"]*\\/jobs\\/view\\/[^\"]+)\"/i)\n    || firstMatch(html, /href='([^']*\\/jobs\\/view\\/[^']+)'/i);\n  const url = absUrl(href.replace(/&amp;/g, '&'));\n  const job_id = jobIdFromUrl(url);\n  if (!url || !job_id) continue;\n  if (job_id === parentId) continue;\n\n  const companyHref = absUrl(\n    (firstMatch(html, /href=\"([^\"]*linkedin\\.com\\/company\\/[^\"]+)\"/i) ||\n      firstMatch(html, /href=\"(\\/company\\/[^\"]+)\"/i)).replace(/&amp;/g, '&')\n  );\n  const company_name =\n    firstMatch(html, /base-search-card__subtitle[^>]*>([\\s\\S]*?)<\\//i).replace(/<[^>]+>/g, '').trim()\n    || firstMatch(html, /hidden-nested-link[^>]*>([\\s\\S]*?)<\\//i).replace(/<[^>]+>/g, '').trim();\n  const location =\n    firstMatch(html, /job-search-card__location[^>]*>([\\s\\S]*?)<\\//i).replace(/<[^>]+>/g, '').trim();\n  const date_text =\n    firstMatch(html, /datetime=\"([^\"]+)\"/i)\n    || firstMatch(html, /job-search-card__listdate[^>]*>([\\s\\S]*?)<\\//i).replace(/<[^>]+>/g, '').trim();\n  const salary_raw =\n    firstMatch(html, /job-search-card__salary-info[^>]*>([\\s\\S]*?)<\\//i).replace(/<[^>]+>/g, '').replace(/\\s+/g, ' ').trim()\n    || firstMatch(html, /(\\$[\\d,]+\\s*[-–]\\s*\\$[\\d,]+[^<]*)/i).replace(/\\s+/g, ' ').trim();\n\n  discoveries.push({\n    job_id,\n    url,\n    hop: parentHop + 1,\n    status: 'queued',\n    discovered_from_job_id: parentId,\n    company_name,\n    company_slug: companySlug(companyHref),\n    company_host: companyHost(companyHref) || (companyHref ? 'www.linkedin.com' : ''),\n    company_linkedin_url: companyHref,\n    location,\n    date_text,\n    salary_raw,\n    fidelity: 'graph',\n    source: 'linkedin',\n    first_seen_at: new Date().toISOString(),\n  });\n}\n\nreturn [{ json: { ...input, discoveries } }];"
+      },
+      "id": "code-harvest",
+      "name": "Harvest Graph Cards",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2520, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "/** Step 4 — Stamp known gaps on primary + graph rows. */\nfunction stamp(row, kind) {\n  const gaps = [];\n  const companyUrl = String(row.company_linkedin_url || '');\n  if (!row.website) gaps.push('no_external_website');\n  if (!companyUrl || /linkedin\\.com\\/company\\//i.test(companyUrl)) {\n    gaps.push('linkedin_internal_company_link_only');\n  }\n  if (row.company_slug) gaps.push('company_slug_may_be_historical');\n  // industry often absent / stale on guest pages — flag for primary when we lack a clean external domain\n  if (kind === 'primary') gaps.push('industry_may_be_stale_or_missing');\n  if (kind === 'graph') {\n    gaps.push('graph_best_effort_html');\n    if (!row.salary_raw) gaps.push('salary_missing_on_card');\n  }\n  return { ...row, gaps: gaps.join('|') };\n}\n\nconst input = items[0].json;\nconst primary = stamp({ ...input.primary, website: '' }, 'primary');\nconst discoveries = (input.discoveries || []).map((d) => stamp({ ...d, website: '' }, 'graph'));\n\nreturn [{ json: { ctx: input.ctx, primary, discoveries } }];"
+      },
+      "id": "code-gaps",
+      "name": "Stamp Known Gaps",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2760, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "/** Emit primary row for Sheets append. */\nconst { primary } = items[0].json;\nreturn [{ json: primary }];"
+      },
+      "id": "code-emit-primary",
+      "name": "Emit Primary Row",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3000, 80]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "LinkedIn Jobs",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-jobs",
+      "name": "Append → LinkedIn Jobs",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [3240, 80],
+      "notesInFlow": true,
+      "notes": "Set spreadsheet ID + Google creds. Tab name: LinkedIn Jobs"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Step 5b — Enqueue discoveries into static queue (dedupe on job_id).\n * Also emit only *new* graph rows for the Discovery Queue sheet.\n */\nconst bag = $('Stamp Known Gaps').item.json;\nconst staticData = $getWorkflowStaticData('global');\nconst crawl = staticData.crawl;\ncrawl.pages_fetched = (crawl.pages_fetched || 0) + 1;\n\nconst newForSheet = [];\nfor (const d of bag.discoveries || []) {\n  const id = d.job_id;\n  if (!id) continue;\n  if (crawl.seen[id]) continue;\n  crawl.seen[id] = true;\n  if (Number(d.hop) <= Number(crawl.max_hops)) {\n    crawl.queue.push({\n      url: d.url,\n      hop: d.hop,\n      job_id: id,\n      discovered_from_job_id: d.discovered_from_job_id,\n    });\n  }\n  newForSheet.push({\n    ...d,\n    status: Number(d.hop) <= Number(crawl.max_hops) ? 'queued' : 'skipped',\n  });\n}\n\nconst coffeeEvery = Number(crawl.coffee_every) || 12;\nconst pages = crawl.pages_fetched;\nconst baseline = 4 + Math.random() * 5; // 4–9s\nconst needsCoffee = pages > 0 && pages % coffeeEvery === 0;\nconst coffee = needsCoffee ? 30 + Math.random() * 30 : 0; // 30–60s\n\nreturn [{\n  json: {\n    pages_fetched: pages,\n    newly_queued: newForSheet.length,\n    queue_remaining: crawl.queue.length,\n    wait_baseline_seconds: Math.round(baseline * 10) / 10,\n    needs_coffee: needsCoffee,\n    wait_coffee_seconds: Math.round(coffee),\n    discoveries: newForSheet,\n  },\n}];"
+      },
+      "id": "code-enqueue",
+      "name": "Enqueue + Schedule Waits",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3000, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { discoveries } = items[0].json;\nif (!discoveries || !discoveries.length) {\n  return [{ json: { _skip_sheet: true } }];\n}\nreturn discoveries.map((d) => ({ json: d }));"
+      },
+      "id": "code-emit-discoveries",
+      "name": "Emit Discovery Rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3240, 320]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-skip",
+              "leftValue": "={{ $json._skip_sheet }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-skip-queue-sheet",
+      "name": "Skip Queue Sheet?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [3480, 320]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Discovery Queue",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-queue",
+      "name": "Append → Discovery Queue",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [3740, 400],
+      "notesInFlow": true,
+      "notes": "Set spreadsheet ID + Google creds. Tab name: Discovery Queue"
+    },
+    {
+      "parameters": {
+        "jsCode": "/** Re-load wait fields after Sheets fan-out (take first / from Enqueue node). */\nconst e = $('Enqueue + Schedule Waits').item.json;\nreturn [{ json: e }];"
+      },
+      "id": "code-reload-waits",
+      "name": "Reload Wait Plan",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [4000, 280]
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.max(1, Math.round(Number($json.wait_baseline_seconds) || 5)) }}",
+        "unit": "seconds"
+      },
+      "id": "wait-baseline",
+      "name": "Baseline Wait (4–9s)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [4240, 280],
+      "webhookId": "linkedin-baseline-wait"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-coffee",
+              "leftValue": "={{ $json.needs_coffee }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-coffee",
+      "name": "Coffee Break?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [4480, 280]
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.max(30, Math.round(Number($json.wait_coffee_seconds) || 45)) }}",
+        "unit": "seconds"
+      },
+      "id": "wait-coffee",
+      "name": "Coffee Wait (30–60s)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [4740, 160],
+      "webhookId": "linkedin-coffee-wait"
+    }
+  ],
+  "connections": {
+    "Start Crawl": {
+      "main": [[{ "node": "Config", "type": "main", "index": 0 }]]
+    },
+    "Config": {
+      "main": [[{ "node": "Init Queue", "type": "main", "index": 0 }]]
+    },
+    "Init Queue": {
+      "main": [[{ "node": "Pop Next URL", "type": "main", "index": 0 }]]
+    },
+    "Pop Next URL": {
+      "main": [[{ "node": "Has Next?", "type": "main", "index": 0 }]]
+    },
+    "Has Next?": {
+      "main": [
+        [{ "node": "Fetch Guest Page", "type": "main", "index": 0 }],
+        [{ "node": "Crawl Complete", "type": "main", "index": 0 }]
+      ]
+    },
+    "Fetch Guest Page": {
+      "main": [[{ "node": "Classify Response", "type": "main", "index": 0 }]]
+    },
+    "Classify Response": {
+      "main": [[{ "node": "Abnormal?", "type": "main", "index": 0 }]]
+    },
+    "Abnormal?": {
+      "main": [
+        [{ "node": "Backoff Wait 120s", "type": "main", "index": 0 }],
+        [{ "node": "HTML Extract (JSON-LD + cards)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Backoff Wait 120s": {
+      "main": [[{ "node": "Retry Guest Page Once", "type": "main", "index": 0 }]]
+    },
+    "Retry Guest Page Once": {
+      "main": [[{ "node": "Classify Retry", "type": "main", "index": 0 }]]
+    },
+    "Classify Retry": {
+      "main": [[{ "node": "Retry Still Bad?", "type": "main", "index": 0 }]]
+    },
+    "Retry Still Bad?": {
+      "main": [
+        [{ "node": "Stop — Soft Block Likely", "type": "main", "index": 0 }],
+        [{ "node": "HTML Extract (JSON-LD + cards)", "type": "main", "index": 0 }]
+      ]
+    },
+    "HTML Extract (JSON-LD + cards)": {
+      "main": [[{ "node": "Parse Main Job (JSON-LD)", "type": "main", "index": 0 }]]
+    },
+    "Parse Main Job (JSON-LD)": {
+      "main": [[{ "node": "Harvest Graph Cards", "type": "main", "index": 0 }]]
+    },
+    "Harvest Graph Cards": {
+      "main": [[{ "node": "Stamp Known Gaps", "type": "main", "index": 0 }]]
+    },
+    "Stamp Known Gaps": {
+      "main": [
+        [
+          { "node": "Emit Primary Row", "type": "main", "index": 0 },
+          { "node": "Enqueue + Schedule Waits", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Emit Primary Row": {
+      "main": [[{ "node": "Append → LinkedIn Jobs", "type": "main", "index": 0 }]]
+    },
+    "Enqueue + Schedule Waits": {
+      "main": [[{ "node": "Emit Discovery Rows", "type": "main", "index": 0 }]]
+    },
+    "Emit Discovery Rows": {
+      "main": [[{ "node": "Skip Queue Sheet?", "type": "main", "index": 0 }]]
+    },
+    "Skip Queue Sheet?": {
+      "main": [
+        [{ "node": "Reload Wait Plan", "type": "main", "index": 0 }],
+        [{ "node": "Append → Discovery Queue", "type": "main", "index": 0 }]
+      ]
+    },
+    "Append → Discovery Queue": {
+      "main": [[{ "node": "Reload Wait Plan", "type": "main", "index": 0 }]]
+    },
+    "Reload Wait Plan": {
+      "main": [[{ "node": "Baseline Wait (4–9s)", "type": "main", "index": 0 }]]
+    },
+    "Baseline Wait (4–9s)": {
+      "main": [[{ "node": "Coffee Break?", "type": "main", "index": 0 }]]
+    },
+    "Coffee Break?": {
+      "main": [
+        [{ "node": "Coffee Wait (30–60s)", "type": "main", "index": 0 }],
+        [{ "node": "Pop Next URL", "type": "main", "index": 0 }]
+      ]
+    },
+    "Coffee Wait (30–60s)": {
+      "main": [[{ "node": "Pop Next URL", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "pinData": {}
+}

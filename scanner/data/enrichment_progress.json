@@ -1,0 +1,8 @@
+{
+  "phase": "blocked_openai_quota",
+  "phase1_remaining": 76,
+  "phase2_remaining": 225,
+  "companywebsite_resolved": 306,
+  "openai_screened": 0,
+  "note": "Firecrawl 402 + OpenAI insufficient_quota. Phase1 mostly done; Phase2 blocked until OpenAI billing topped up."
+}

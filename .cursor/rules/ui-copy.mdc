@@ -1,0 +1,34 @@
+---
+description: UI copy — facts only; UI presents structure; no duplicate stages; clear CTAs
+globs: apps/tally/src/app/register/**/*.{tsx,ts}
+alwaysApply: true
+---
+
+# UI copy (click-through & Register)
+
+Full law: `docs/build-foundation/10-ui-copy.md`
+
+## Do
+
+- State **facts the persona needs to act** (who, money, state, next event)
+- Put structured facts in **UI** (label + value grids/rows). Long prose only in **Terms** / optional Why-price door
+- Captions: **one short fact**
+- Prefer **periods and commas** in chrome; plain CTAs (`Fund`, `Review terms`)
+- Guest landing = **same desk shell as BC** (Campaigns / Meetings / Escrow)
+- **Congruence:** same module types rhyme (shell, hairline row, Empty, More, Fact). Don’t force Operator plant or Worker nav into BC’s IA
+
+## Don't
+
+- Narrator ad-lib (“Same person”, “You’re a…”, workshop asides)
+- Essay landings that restate escrow math in a paragraph
+- Opaque metaphors as primary CTA (“Walk this with Operator”)
+- Duplicate stages for the same decision (Invite + Walk twin)
+- Icon-square nav + You footer on persona desks when the family uses text nav
+- Em-dash slogans / middle-dot metric essays on list rows
+- Register jargon in product chrome
+
+## Test
+
+If deleting the sentence does not change the decision → delete it.  
+If UI labels + values already say it → don’t also write a paragraph.  
+If two personas use the same module type but look unrelated → rhyme toward Guest/BC desk.

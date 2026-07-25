@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="220" viewBox="0 0 280 220" fill="none">
+  <title>Filter + prune v1 - grid filters</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .ink { fill:#212121; font: 11px system-ui,sans-serif }
+    .muted { fill:#9e9e9e; font: 10px system-ui,sans-serif }
+    .row { fill:#ffffff; stroke:#e0e0e0; stroke-width:1 }
+  </style>
+  <rect class="frame" x="1" y="1" width="278" height="218" rx="8"/>
+  <rect class="chrome" x="1" y="1" width="278" height="28" rx="8"/>
+  <text class="label" x="140" y="19" text-anchor="middle">3 - Filter + prune</text>
+  <rect class="row" x="16" y="40" width="248" height="18" rx="2"/>
+  <text class="muted" x="24" y="53">FILTERS grid - Company HQ Sources...</text>
+  <rect class="row" x="16" y="68" width="248" height="18" rx="2"/>
+  <text class="ink" x="24" y="81" style="font-size:9px">matched rows - remove / restore</text>
+  <rect class="row" x="16" y="94" width="248" height="18" rx="2"/>
+  <text class="ink" x="24" y="107" style="font-size:9px">Cannot be identified = honest</text>
+  <rect x="16" y="122" width="248" height="22" rx="2" fill="none" stroke="#bdbdbd" stroke-dasharray="4 3"/>
+  <text class="muted" x="140" y="137" text-anchor="middle">+ Add firm (demo)</text>
+  <rect class="cta" x="100" y="168" width="80" height="26" rx="3"/>
+  <text class="label" x="140" y="185" text-anchor="middle" style="fill:#fff">Deploy</text>
+</svg>

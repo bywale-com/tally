@@ -1,5 +1,5 @@
 """
-LLM batch scorer — Claude + web search tool, TALLY Scanner prompt (verbatim analysis spec).
+LLM batch scorer — OpenAI + optional web search, Tally Scanner rubric.
 One batch call (or chunks) for all scored=false survivors. Never per-posting scoring.
 """
 
@@ -10,7 +10,7 @@ import logging
 import re
 from typing import Any
 
-import anthropic
+from openai import OpenAI
 
 from tally_scanner.config import get_settings
 
@@ -55,7 +55,7 @@ LANE B — JOB APPLICATION (residual only). Route here ONLY if Tally genuinely c
 
 ROUTING RULE — do not violate: Default to Lane A. High status descends; low status cannot climb. Pitching Tally first preserves both doors — a founder who has watched you book his meetings does not need a resume. Applying first and getting rejected closes the Tally door. Never route a company to Lane B that could have been Lane A.
 
-You have a web search tool. Use it to look up funding, pricing pages, headcount, and delivery-risk reviews (G2, Trustpilot, Reddit). Prefer primary sources. Do not invent numbers.
+Use web search when available to look up funding, pricing pages, headcount, and delivery-risk reviews (G2, Trustpilot, Reddit). Prefer primary sources. Do not invent numbers.
 
 OUTPUT FORMAT (CRITICAL)
 Return JSON only — no prose, no markdown fences. Schema:
@@ -103,6 +103,18 @@ def _strip_json_fences(text: str) -> str:
     return text.strip()
 
 
+def _parse_score_json(raw: str) -> dict[str, Any]:
+    raw = _strip_json_fences(raw)
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        start, end = raw.find("{"), raw.rfind("}")
+        if start >= 0 and end > start:
+            return json.loads(raw[start : end + 1])
+        logger.error("Failed to parse scorer JSON: %s", raw[:500])
+        raise
+
+
 def _build_batch_user_payload(postings: list[dict[str, Any]]) -> str:
     payload = []
     for p in postings:
@@ -135,89 +147,89 @@ def _build_batch_user_payload(postings: list[dict[str, Any]]) -> str:
     )
 
 
+def _stub_scores(postings: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "companies": [
+            {
+                "posting_id": p["id"],
+                "company": p["company"],
+                "role_title": p["title"],
+                "posting_url": p.get("url") or "UNKNOWN",
+                "pipeline_confession": p.get("confession_quote") or "UNKNOWN",
+                "acv": "UNKNOWN",
+                "acv_numeric": None,
+                "funding_stage": "UNKNOWN",
+                "headcount": "UNKNOWN",
+                "founder_led": None,
+                "buyer": "UNKNOWN",
+                "phone_reachable": "unknown",
+                "sales_cycle": "UNKNOWN",
+                "pipeline_spend": "UNKNOWN",
+                "delivery_risk": "UNKNOWN",
+                "lane": "DQ",
+                "lane_reason": "dry-run stub — not scored by LLM",
+                "sources": [p.get("source")],
+            }
+            for p in postings
+        ],
+        "top3_lane_a_rationales": [],
+        "unknowns_that_change_routing": [],
+        "_dry_run": True,
+    }
+
+
+def _extract_responses_text(response: Any) -> str:
+    text = getattr(response, "output_text", None)
+    if text:
+        return text
+    parts: list[str] = []
+    for item in getattr(response, "output", None) or []:
+        for content in getattr(item, "content", None) or []:
+            if getattr(content, "type", None) in {"output_text", "text"}:
+                parts.append(getattr(content, "text", "") or "")
+    return "\n".join(parts)
+
+
 def score_batch(postings: list[dict[str, Any]]) -> dict[str, Any]:
-    """
-    Score a list of unscored postings in one LLM call (caller chunks if needed).
-    Uses Anthropic Messages API with web_search tool when available.
-    """
+    """Score unscored postings in one OpenAI call (caller chunks if needed)."""
     settings = get_settings()
     if not postings:
         return {"companies": [], "top3_lane_a_rationales": [], "unknowns_that_change_routing": []}
 
-    if settings.scanner_dry_run or not settings.anthropic_api_key:
+    if settings.scanner_dry_run or not settings.openai_api_key:
         logger.warning("Dry-run / no API key — returning stub scores (lane=DQ stub)")
-        return {
-            "companies": [
-                {
-                    "posting_id": p["id"],
-                    "company": p["company"],
-                    "role_title": p["title"],
-                    "posting_url": p.get("url") or "UNKNOWN",
-                    "pipeline_confession": p.get("confession_quote") or "UNKNOWN",
-                    "acv": "UNKNOWN",
-                    "acv_numeric": None,
-                    "funding_stage": "UNKNOWN",
-                    "headcount": "UNKNOWN",
-                    "founder_led": None,
-                    "buyer": "UNKNOWN",
-                    "phone_reachable": "unknown",
-                    "sales_cycle": "UNKNOWN",
-                    "pipeline_spend": "UNKNOWN",
-                    "delivery_risk": "UNKNOWN",
-                    "lane": "DQ",
-                    "lane_reason": "dry-run stub — not scored by LLM",
-                    "sources": [p.get("source")],
-                }
-                for p in postings
-            ],
-            "top3_lane_a_rationales": [],
-            "unknowns_that_change_routing": [],
-            "_dry_run": True,
-        }
+        return _stub_scores(postings)
 
-    client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
+    client = OpenAI(api_key=settings.openai_api_key)
     user_content = _build_batch_user_payload(postings)
+    model = settings.openai_score_model
 
-    # Prefer web_search tool; fall back to plain completion if tool unsupported.
-    tools = [
-        {
-            "type": "web_search_20250305",
-            "name": "web_search",
-            "max_uses": 20,
-        }
-    ]
-
+    # Prefer Responses API + web_search for live enrichment; fall back to chat JSON.
     try:
-        response = client.messages.create(
-            model=settings.anthropic_model,
-            max_tokens=16000,
-            system=SCANNER_SYSTEM_PROMPT,
-            tools=tools,
-            messages=[{"role": "user", "content": user_content}],
+        response = client.responses.create(
+            model=model,
+            tools=[{"type": "web_search_preview"}],
+            instructions=SCANNER_SYSTEM_PROMPT,
+            input=user_content,
         )
+        raw = _extract_responses_text(response)
+        if raw.strip():
+            return _parse_score_json(raw)
+        logger.warning("Empty Responses API output — falling back to chat completions")
     except Exception as e:
-        logger.warning("web_search tool call failed (%s) — retrying without tools", e)
-        response = client.messages.create(
-            model=settings.anthropic_model,
-            max_tokens=16000,
-            system=SCANNER_SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": user_content}],
-        )
+        logger.warning("Responses/web_search failed (%s) — falling back to chat completions", e)
 
-    text_parts: list[str] = []
-    for block in response.content:
-        if getattr(block, "type", None) == "text":
-            text_parts.append(block.text)
-    raw = _strip_json_fences("\n".join(text_parts))
-    try:
-        return json.loads(raw)
-    except json.JSONDecodeError:
-        # Last-ditch: find outermost JSON object
-        start, end = raw.find("{"), raw.rfind("}")
-        if start >= 0 and end > start:
-            return json.loads(raw[start : end + 1])
-        logger.error("Failed to parse scorer JSON: %s", raw[:500])
-        raise
+    resp = client.chat.completions.create(
+        model=model,
+        temperature=0,
+        response_format={"type": "json_object"},
+        messages=[
+            {"role": "system", "content": SCANNER_SYSTEM_PROMPT},
+            {"role": "user", "content": user_content},
+        ],
+    )
+    content = resp.choices[0].message.content or "{}"
+    return _parse_score_json(content)
 
 
 def score_all_unscored(postings: list[dict[str, Any]], batch_size: int | None = None) -> dict[str, Any]:
@@ -236,7 +248,6 @@ def score_all_unscored(postings: list[dict[str, Any]], batch_size: int | None = 
         merged["top3_lane_a_rationales"].extend(result.get("top3_lane_a_rationales") or [])
         merged["unknowns_that_change_routing"].extend(result.get("unknowns_that_change_routing") or [])
 
-    # Re-sort by acv_numeric desc
     merged["companies"].sort(
         key=lambda c: (c.get("acv_numeric") is not None, c.get("acv_numeric") or 0),
         reverse=True,

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" viewBox="0 0 1000 300" fill="none">
+  <title>Worker run: pick up, begin, manage, track lo-fi strip</title>
+  <style>
+    .frame { stroke:#bdbdbd; stroke-width:2; fill:#fafafa }
+    .chrome { fill:#eeeeee }
+    .block { fill:#e0e0e0 }
+    .cta { fill:#212121 }
+    .label { fill:#757575; font: 11px system-ui,sans-serif }
+    .arrow { stroke:#212121; stroke-width:2; fill:none; marker-end:url(#m) }
+    .dot { fill:#9e9e9e }
+  </style>
+  <defs>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#212121"/>
+    </marker>
+  </defs>
+
+  <text class="label" x="500" y="18" text-anchor="middle">Tally Worker - run a launched campaign</text>
+
+  <!-- 1 pick up -->
+  <rect class="frame" x="16" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="16" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="106" y="32" text-anchor="middle">1 - Pick up</text>
+  <rect class="block" x="32" y="80" width="148" height="18" rx="3"/>
+  <rect class="block" x="32" y="106" width="148" height="18" rx="3"/>
+  <rect class="block" x="32" y="132" width="148" height="18" rx="3"/>
+  <text class="label" x="106" y="176" text-anchor="middle">available campaigns</text>
+  <rect class="cta" x="48" y="200" width="116" height="24" rx="4"/>
+  <text class="label" x="106" y="217" text-anchor="middle" style="fill:#fff">Pick up</text>
+
+  <path class="arrow" d="M204 230 H236"/>
+
+  <!-- 2 begin -->
+  <rect class="frame" x="244" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="244" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="334" y="32" text-anchor="middle">2 - Begin</text>
+  <rect class="block" x="260" y="90" width="148" height="16" rx="3"/>
+  <rect class="block" x="260" y="114" width="148" height="60" rx="4"/>
+  <rect class="cta" x="280" y="200" width="108" height="24" rx="4"/>
+  <text class="label" x="334" y="217" text-anchor="middle" style="fill:#fff">Begin</text>
+
+  <path class="arrow" d="M432 214 H464"/>
+
+  <!-- 3 manage -->
+  <rect class="frame" x="472" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="472" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="562" y="32" text-anchor="middle">3 - Manage</text>
+  <rect class="block" x="488" y="80" width="148" height="16" rx="3"/>
+  <rect class="block" x="488" y="104" width="148" height="16" rx="3"/>
+  <rect class="block" x="488" y="128" width="148" height="16" rx="3"/>
+  <rect class="block" x="488" y="152" width="148" height="16" rx="3"/>
+  <text class="label" x="562" y="192" text-anchor="middle">outreach list - active</text>
+  <circle class="dot" cx="500" cy="216" r="4"/>
+  <text class="label" x="562" y="220" text-anchor="middle">working</text>
+
+  <path class="arrow" d="M660 214 H692"/>
+
+  <!-- 4 track + notify -->
+  <rect class="frame" x="700" y="40" width="180" height="220" rx="8"/>
+  <rect class="chrome" x="700" y="40" width="180" height="26" rx="8"/>
+  <text class="label" x="790" y="32" text-anchor="middle">4 - Track / notify</text>
+  <rect class="block" x="716" y="82" width="148" height="12" rx="6"/>
+  <rect class="block" x="716" y="82" width="96" height="12" rx="6"/>
+  <text class="label" x="790" y="112" text-anchor="middle">progress</text>
+  <rect class="block" x="716" y="132" width="148" height="60" rx="6"/>
+  <text class="label" x="790" y="124" text-anchor="middle">business client sees:</text>
+  <circle class="dot" cx="736" cy="216" r="4"/>
+  <text class="label" x="790" y="220" text-anchor="middle">client notified</text>
+
+  <text class="label" x="920" y="140">Worker only</text>
+  <text class="label" x="920" y="156">no CRM detail</text>
+</svg>
