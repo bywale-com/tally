@@ -1,37 +1,55 @@
-# Killed PMF attempts — building-ops cluster
+# Killed attempts
 
-Date: 2026-09-29  
-Empty shortlist. Each file is a fish inside an **admitted pond**. Kill is on Layer-2 evidence bar, not pond death.
+23 fish were tested against the evidence bar. None survived. Grouped by the gate that died. Full writeups in `killed/`.
 
-| File | Killed at | One-line |
-|------|-----------|----------|
-| [garage-door-spring-shop-wait.md](killed/garage-door-spring-shop-wait.md) | problem | Homeowner same-day springs; no ≥2 PM/plaza/landlord accounts of shop wait / lost van |
-| [plaza-dock-door-down.md](killed/plaza-dock-door-down.md) | problem | Vendor downtime copy only; one unlocated warehouse employee |
-| [locksmith-lockouts-rekey.md](killed/locksmith-lockouts-rekey.md) | dissatisfaction | Landlords already DIY SmartKey / barrel-swap; locksmiths do show (LTB $423.75 / 48h) |
-| [camera-nvr-vendor-bounce.md](killed/camera-nvr-vendor-bounce.md) | buyer + congruence | Condo board password loss; tenant footage/privacy; vendor blogs |
-| [walkup-intercom-failures.md](killed/walkup-intercom-failures.md) | buyer + congruence | Loud tenant dead-buzzer voice; no PM “vendor won’t come” pair |
-| [cabling-for-turnover.md](killed/cabling-for-turnover.md) | problem | NOI vendor blogs; no landlord first-person |
-| [landlord-cant-get-trades.md](killed/landlord-cant-get-trades.md) | problem | One “struggle to find reliable trades”; second landlord uses Google/WOM |
-| [after-hours-entry.md](killed/after-hours-entry.md) | dissatisfaction | Tenant lockout fees / 2h dispatch; operator does not confess method-hate |
+## Congruence / delivery (problem may be real)
 
-Traps that fired: tenant vs PM maintenance/alarm bounce; cameras-in-units / footage fights; condo board as buyer.
+| File | What was evidenced | Why it still dies |
+|------|--------------------|-------------------|
+| [snow-insurance-sla.md](killed/snow-insurance-sla.md) | **Strongest file.** Named owners, repeating premium shock, logs already used, still “brutal.” | Cannot underwrite; GPS is not a new method |
+| [public-locate-wait.md](killed/public-locate-wait.md) | Ottawa 2010 production stop (one named-role quote); public paint | Private locates cannot paint Enbridge/hydro; LSP geography is closed |
+| [labour-no-shows.md](killed/labour-no-shows.md) | Shortage / TFWP (Patterson, Yards Unlimited) | Staffing is not a January technical mechanism |
+| [work-van-downtime.md](killed/work-van-downtime.md) | Thin “lose a work day” colour | 310S compulsory; January fail even if PMF thickened |
 
----
+## Wrong buyer or no ≥2 same-segment problem accounts
 
-# Killed PMF attempts — outdoor / site-work cluster
+| File | Gate | One-line |
+|------|------|----------|
+| [private-plant-private-locates.md](killed/private-plant-private-locates.md) | problem | Rates exist; no pair of owners of a private-locate invoice they dislike |
+| [irrigation-as-collateral.md](killed/irrigation-as-collateral.md) | buyer | Sprinkler-cut voice is homeowners; contractors wrote repair-after into the contract |
+| [drainage-callbacks.md](killed/drainage-callbacks.md) | buyer | Patio pooling is homeowner/vendor; joining the pond is not PMF |
+| [gpr-before-cutting.md](killed/gpr-before-cutting.md) | problem | Vendor FAQs + one competitor-miss story |
+| [garage-door-spring-shop-wait.md](killed/garage-door-spring-shop-wait.md) | problem | Christmas homeowner four-day wait; landlord already had a guy; shops advertise same-day |
+| [plaza-dock-door-down.md](killed/plaza-dock-door-down.md) | problem | Vendor copy only |
+| [cabling-for-turnover.md](killed/cabling-for-turnover.md) | problem | NOI blogs, not PMs |
+| [landlord-cant-get-trades.md](killed/landlord-cant-get-trades.md) | problem | One past-tense “struggle”; same poster now has a full bench |
+| [camera-nvr-vendor-bounce.md](killed/camera-nvr-vendor-bounce.md) | buyer + congruence | Tenant/privacy/condo-board; not boutique PM bounce |
+| [walkup-intercom-failures.md](killed/walkup-intercom-failures.md) | buyer | Tenant mouth; door propped |
+| [compressed-air-downtime.md](killed/compressed-air-downtime.md) | problem | Vendor 24/7 copy; no plant-buyer pair |
+| [hot-tub-winter-failures.md](killed/hot-tub-winter-failures.md) | problem | n=1; heater/pack often 309A |
 
-Date: 2026-09-29  
-Pond: GTA/Ontario independent landscape, excavation, fence, irrigation, hardscape, snow, concrete-cutting owners. Empty shortlist. Dump: [evidence/outdoor-pmf.md](evidence/outdoor-pmf.md).
+## Method already works / they are not dissatisfied with it
 
-| File | Killed at | One-line |
-|------|-----------|----------|
-| [public-locate-wait.md](killed/public-locate-wait.md) | congruence (+ thin first-person) | Ottawa 2010 Promark wait is **public** paint; cannot sell private locates |
-| [private-plant-private-locates.md](killed/private-plant-private-locates.md) | problem | DIRT/counts/vendor rates; no ≥2 owners of private-locate invoice + dislike |
-| [irrigation-as-collateral.md](killed/irrigation-as-collateral.md) | buyer / problem | HomeStars sprinkler cuts are homeowners, not fence/landscape owners |
-| [drainage-callbacks.md](killed/drainage-callbacks.md) | buyer / problem | Patio pooling is homeowner voice; selling drainage is joining the pond |
-| [snow-insurance-sla.md](killed/snow-insurance-sla.md) | congruence | Thacker/Fraser/Sim **do** quote exploding CGL; operator cannot underwrite; GPS/logs already used |
-| [equipment-downtime.md](killed/equipment-downtime.md) | dissatisfaction | GTA first-person hose breaks praise PIRTEK 30–120 min |
-| [labour-no-shows.md](killed/labour-no-shows.md) | problem / congruence | Shortage quotes exist; no-shows do not; staffing ≠ January technical door |
-| [gpr-before-cutting.md](killed/gpr-before-cutting.md) | problem | Vendor FAQs + one Xradar competitor-miss story; no cutter-owner pair |
+| File | Gate | One-line |
+|------|------|----------|
+| [equipment-downtime.md](killed/equipment-downtime.md) | dissatisfaction | “Pirtek had me up and running in 40 mins.” |
+| [locksmith-lockouts-rekey.md](killed/locksmith-lockouts-rekey.md) | dissatisfaction | Locksmith attended; SmartKey DIY; after-hours billed to tenant |
+| [locksmith-beyond-lockout.md](killed/locksmith-beyond-lockout.md) | dissatisfaction | Rekey at Rona ~$40 |
+| [after-hours-entry.md](killed/after-hours-entry.md) | dissatisfaction | Tech already rolling; $319 invoice is the method working |
+| [cash-category-1-weekday-drying.md](killed/cash-category-1-weekday-drying.md) | dissatisfaction | “$2500 felt high” after delivery; other path is DIY because policy won’t pay |
+| [septic-pump-outs.md](killed/septic-pump-outs.md) | dissatisfaction | “$100 is a small price”; they have a guy |
+| [epoxy-peel-failures.md](killed/epoxy-peel-failures.md) | congruence | DIY peelers go to tiles/quit; one redo is n=1 |
 
-Traps that fired: public One Call wait attached to a private-locate product; homeowner reviews treated as contractor-owner voice; snow documentation as if it were not already the method.
+## Economics / 30h packaging
+
+| File | Gate | One-line |
+|------|------|----------|
+| [water-restoration-24-7-pcc.md](killed/water-restoration-24-7-pcc.md) | economics | Lived method is 2:30am / overnight / insurer panel. That is the 30h kill even when the job is real. |
+
+## Pattern
+
+Where first-person voice is strong, the mechanism is usually **closed** (public locates, insurance, 310S) or **already supplied** (PIRTEK, locksmith, garage guy, pumper).
+
+Where the mechanism is January-open (private locates, cameras, dock doors, cabling, weekday drying), the buyer-voice pair is missing or the method is already acceptable.
+
+That is why a hunting ground can be admitted and the PMF shortlist can still be empty.
