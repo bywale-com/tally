@@ -1,6 +1,6 @@
 # Killed attempts
 
-23 fish were tested against the evidence bar. None survived. Grouped by the gate that died. Full writeups in `killed/`.
+24 fish were tested against the evidence bar. None survived. Grouped by the gate that died. Full writeups in `killed/`.
 
 ## Congruence / delivery (problem may be real)
 
